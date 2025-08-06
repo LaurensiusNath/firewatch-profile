@@ -2,39 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Fire Training HSE Department Design System */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 0 0% 98%;
+    --foreground: 0 0% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 12%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Fire theme - Red primary with orange accents */
+    --primary: 4 89% 58%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 12 100% 65%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 20%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 24 100% 65%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 0 0% 90%;
+    --input: 0 0% 94%;
+    --ring: 4 89% 58%;
+
+    /* Fire gradients */
+    --gradient-fire: linear-gradient(135deg, hsl(4 89% 58%), hsl(24 100% 65%));
+    --gradient-ember: linear-gradient(180deg, hsl(12 100% 65%), hsl(4 89% 58%));
+    --gradient-hero: linear-gradient(135deg, hsl(4 89% 58% / 0.95), hsl(24 100% 65% / 0.9));
+    
+    /* Fire shadows */
+    --shadow-fire: 0 10px 30px -5px hsl(4 89% 58% / 0.3);
+    --shadow-glow: 0 0 40px hsl(12 100% 65% / 0.4);
+    --shadow-float: 0 20px 60px -10px hsl(0 0% 0% / 0.1);
+
+    /* Animations */
+    --transition-fire: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --radius: 0.5rem;
 
