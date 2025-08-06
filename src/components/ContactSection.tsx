@@ -50,8 +50,8 @@ const ContactSection = () => {
           <Card className="border-0 shadow-float">
             <CardHeader>
               <CardTitle className="text-2xl text-foreground flex items-center gap-3">
-                <div className="bg-gradient-fire p-2 rounded-lg">
-                  <Flame className="h-6 w-6 text-primary-foreground" />
+                <div className="bg-accent p-2 rounded-lg">
+                  <Flame className="h-6 w-6 text-accent-foreground" />
                 </div>
                 Send Us a Message
               </CardTitle>
@@ -122,7 +122,7 @@ const ContactSection = () => {
                 
                 <Button 
                   type="submit" 
-                  className="w-full bg-gradient-fire hover:shadow-glow transition-all duration-300"
+                  className="w-full bg-accent hover:bg-accent/90 text-accent-foreground transition-all duration-300"
                   size="lg"
                 >
                   Send Message
@@ -139,7 +139,7 @@ const ContactSection = () => {
 
           {/* Contact Information */}
           <div className="space-y-6">
-            <Card className="bg-gradient-fire border-0 text-primary-foreground">
+            <Card className="bg-accent border-0 text-accent-foreground">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold mb-4">Emergency Contact</h3>
                 <p className="text-primary-foreground/90 mb-4">

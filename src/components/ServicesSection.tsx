@@ -1,56 +1,63 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Flame, Shield, HardHat, Users, Building, Wrench, Clock, Award } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Flame, Shield, HardHat, Users, Building, Wrench, Clock, Award, ArrowRight } from "lucide-react";
 
 const ServicesSection = () => {
-  const services = [
+  const trainings = [
     {
       icon: Flame,
-      title: "Fire Safety Training",
-      description: "Comprehensive fire safety education covering prevention, suppression, and emergency evacuation procedures.",
-      features: ["Fire extinguisher training", "Evacuation procedures", "Fire prevention", "Emergency response"],
-      duration: "1-3 days",
-      level: "All Levels"
+      title: "Fire Fighter Training Academy",
+      description: "Comprehensive certification programs for aspiring fire fighters, including physical training, emergency response, and technical skills development.",
+      duration: "12-16 weeks",
+      certification: "NFPA Certified",
+      level: "Entry Level",
+      featured: true
     },
     {
       icon: Shield,
-      title: "HSE Consulting",
-      description: "Professional health, safety, and environmental consulting services for workplace safety compliance.",
-      features: ["Risk assessment", "Safety audits", "Compliance training", "Policy development"],
-      duration: "Ongoing",
-      level: "Corporate"
+      title: "Emergency Medical Services",
+      description: "Advanced EMS training programs for fire fighters and emergency medical personnel, including paramedic certification and continuing education.",
+      duration: "6-12 months",
+      certification: "NREMT Certified",
+      level: "Professional",
+      featured: false
     },
     {
       icon: HardHat,
-      title: "Industrial Safety",
-      description: "Specialized training for industrial environments focusing on hazard identification and control.",
-      features: ["Hazard analysis", "Safety protocols", "Equipment training", "Emergency drills"],
-      duration: "2-5 days",
-      level: "Professional"
+      title: "Hazmat Operations",
+      description: "Specialized hazardous materials response training covering identification, containment, and safe handling of dangerous substances.",
+      duration: "40 hours",
+      certification: "OSHA Certified",
+      level: "Advanced",
+      featured: false
     },
     {
       icon: Users,
-      title: "Team Leadership",
-      description: "Emergency response leadership training for supervisors and safety coordinators.",
-      features: ["Crisis management", "Team coordination", "Decision making", "Communication"],
-      duration: "3-5 days",
-      level: "Advanced"
+      title: "Leadership Development",
+      description: "Command and leadership training for fire officers, including incident command, personnel management, and strategic planning.",
+      duration: "5-8 weeks",
+      certification: "FESHE Certified",
+      level: "Leadership",
+      featured: true
     },
     {
       icon: Building,
-      title: "Building Safety",
-      description: "Comprehensive building safety assessments and evacuation planning services.",
-      features: ["Building codes", "Safety systems", "Evacuation plans", "Compliance check"],
-      duration: "1-2 days",
-      level: "Facility Managers"
+      title: "Fire Prevention & Inspection",
+      description: "Code enforcement and fire prevention training programs for inspectors and prevention specialists.",
+      duration: "3-6 weeks",
+      certification: "ICC Certified",
+      level: "Specialist",
+      featured: false
     },
     {
       icon: Wrench,
-      title: "Equipment Training",
-      description: "Hands-on training with firefighting and safety equipment for maximum effectiveness.",
-      features: ["Equipment operation", "Maintenance", "Safety checks", "Best practices"],
-      duration: "1-2 days",
-      level: "Technical"
+      title: "Technical Rescue Operations",
+      description: "Specialized rescue training including rope rescue, confined space, trench rescue, and vehicle extrication techniques.",
+      duration: "2-4 weeks",
+      certification: "NFPA Certified",
+      level: "Technical",
+      featured: false
     }
   ];
 
@@ -58,61 +65,93 @@ const ServicesSection = () => {
     <section id="services" className="py-20 bg-muted/30">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
+          <h3 className="text-sm font-semibold tracking-wider text-accent mb-4">PROFESSIONAL DEVELOPMENT</h3>
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Our Training <span className="text-primary">Programs</span>
+            Training <span className="text-accent">Programs</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Comprehensive fire safety and HSE training programs designed to meet industry standards 
-            and provide practical, life-saving skills for professionals and organizations.
+            Comprehensive training and certification programs designed to advance fire fighter skills, 
+            safety knowledge, and professional development at every career level.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <Card key={index} className="hover:shadow-fire transition-all duration-300 group border-0 bg-card">
+          {trainings.map((training, index) => (
+            <Card key={index} className={`transition-all duration-300 group border-0 ${
+              training.featured 
+                ? 'bg-primary text-primary-foreground shadow-professional ring-2 ring-accent' 
+                : 'bg-card hover:shadow-card'
+            }`}>
               <CardHeader className="pb-4">
-                <div className="bg-gradient-fire p-4 rounded-xl w-fit group-hover:shadow-glow transition-all duration-300">
-                  <service.icon className="h-8 w-8 text-primary-foreground" />
+                <div className="flex items-center justify-between mb-4">
+                  <div className={`p-4 rounded-xl w-fit ${
+                    training.featured 
+                      ? 'bg-accent shadow-accent' 
+                      : 'bg-accent group-hover:shadow-accent'
+                  } transition-all duration-300`}>
+                    <training.icon className="h-8 w-8 text-accent-foreground" />
+                  </div>
+                  {training.featured && (
+                    <Badge className="bg-accent text-accent-foreground">Featured</Badge>
+                  )}
                 </div>
-                <CardTitle className="text-xl text-foreground group-hover:text-primary transition-colors">
-                  {service.title}
+                <CardTitle className={`text-xl ${
+                  training.featured 
+                    ? 'text-primary-foreground' 
+                    : 'text-foreground group-hover:text-accent'
+                } transition-colors`}>
+                  {training.title}
                 </CardTitle>
               </CardHeader>
               
               <CardContent className="space-y-4">
-                <p className="text-muted-foreground">{service.description}</p>
+                <p className={`${
+                  training.featured 
+                    ? 'text-primary-foreground/90' 
+                    : 'text-muted-foreground'
+                }`}>
+                  {training.description}
+                </p>
                 
                 <div className="space-y-3">
                   <div className="flex items-center gap-2 text-sm">
-                    <Clock className="h-4 w-4 text-primary" />
-                    <span className="text-foreground">Duration: {service.duration}</span>
+                    <Clock className={`h-4 w-4 ${
+                      training.featured ? 'text-accent' : 'text-accent'
+                    }`} />
+                    <span className={training.featured ? 'text-primary-foreground' : 'text-foreground'}>
+                      Duration: {training.duration}
+                    </span>
                   </div>
                   <div className="flex items-center gap-2 text-sm">
-                    <Award className="h-4 w-4 text-primary" />
-                    <span className="text-foreground">Level: {service.level}</span>
+                    <Award className={`h-4 w-4 ${
+                      training.featured ? 'text-accent' : 'text-accent'
+                    }`} />
+                    <span className={training.featured ? 'text-primary-foreground' : 'text-foreground'}>
+                      {training.certification}
+                    </span>
                   </div>
-                </div>
-
-                <div className="space-y-2">
-                  <h4 className="font-semibold text-foreground">Key Features:</h4>
-                  <ul className="space-y-1">
-                    {service.features.map((feature, i) => (
-                      <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
+                  <Badge variant={training.featured ? "outline" : "secondary"} className={
+                    training.featured 
+                      ? "border-primary-foreground text-primary-foreground" 
+                      : ""
+                  }>
+                    {training.level}
+                  </Badge>
                 </div>
 
                 <Button 
-                  className="w-full mt-6 bg-gradient-fire hover:shadow-glow transition-all duration-300"
+                  className={`w-full mt-6 transition-all duration-300 ${
+                    training.featured
+                      ? 'bg-accent hover:bg-accent/90 text-accent-foreground'
+                      : 'bg-accent hover:bg-accent/90 text-accent-foreground hover:shadow-accent'
+                  }`}
                   onClick={() => {
                     const element = document.getElementById("contact");
                     element?.scrollIntoView({ behavior: "smooth" });
                   }}
                 >
-                  Learn More
+                  {training.featured ? 'Enroll Now' : 'Learn More'}
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </CardContent>
             </Card>
@@ -120,22 +159,36 @@ const ServicesSection = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="mt-16 text-center bg-gradient-fire rounded-2xl p-8 text-primary-foreground">
-          <h3 className="text-3xl font-bold mb-4">Ready to Enhance Your Safety Skills?</h3>
-          <p className="text-xl mb-6 text-primary-foreground/90">
-            Contact us today to discuss custom training solutions for your organization
+        <div className="mt-16 text-center bg-primary rounded-2xl p-12 text-primary-foreground">
+          <h3 className="text-3xl md:text-4xl font-bold mb-6">Ready to Advance Your Career?</h3>
+          <p className="text-xl mb-8 text-primary-foreground/90 max-w-3xl mx-auto">
+            Join thousands of fire fighters who have advanced their careers through our professional training programs. 
+            Contact us today to discuss enrollment and certification pathways.
           </p>
-          <Button 
-            size="lg"
-            variant="outline"
-            className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary transition-all duration-300"
-            onClick={() => {
-              const element = document.getElementById("contact");
-              element?.scrollIntoView({ behavior: "smooth" });
-            }}
-          >
-            Get Custom Quote
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button 
+              size="lg"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground"
+              onClick={() => {
+                const element = document.getElementById("contact");
+                element?.scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              View All Programs
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+            <Button 
+              size="lg"
+              variant="outline"
+              className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary transition-all duration-300"
+              onClick={() => {
+                const element = document.getElementById("contact");
+                element?.scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              Get Information
+            </Button>
+          </div>
         </div>
       </div>
     </section>

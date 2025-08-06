@@ -96,10 +96,10 @@ const TeamSection = () => {
           {stats.map((stat, index) => (
             <Card key={index} className="text-center hover:shadow-fire transition-all duration-300 group border-0">
               <CardContent className="p-6">
-                <div className="bg-gradient-fire p-4 rounded-xl w-fit mx-auto mb-4 group-hover:shadow-glow transition-all duration-300">
-                  <stat.icon className="h-8 w-8 text-primary-foreground" />
+                <div className="bg-accent p-4 rounded-xl w-fit mx-auto mb-4 group-hover:shadow-accent transition-all duration-300">
+                  <stat.icon className="h-8 w-8 text-accent-foreground" />
                 </div>
-                <div className="text-3xl font-bold text-primary mb-2">{stat.value}</div>
+                <div className="text-3xl font-bold text-accent mb-2">{stat.value}</div>
                 <div className="text-lg font-semibold text-foreground mb-2">{stat.label}</div>
                 <p className="text-sm text-muted-foreground">{stat.description}</p>
               </CardContent>
@@ -110,22 +110,22 @@ const TeamSection = () => {
         {/* Team Members */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {teamMembers.map((member, index) => (
-            <Card key={index} className="hover:shadow-fire transition-all duration-300 group border-0">
+            <Card key={index} className="hover:shadow-card transition-all duration-300 group border-0">
               <CardContent className="p-6">
                 <div className="text-center mb-4">
-                  <div className="w-16 h-16 bg-gradient-fire rounded-full flex items-center justify-center mx-auto mb-3 group-hover:shadow-glow transition-all duration-300">
+                  <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-3 group-hover:shadow-accent transition-all duration-300">
                     <Users className="h-8 w-8 text-primary-foreground" />
                   </div>
-                  <h4 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">
+                  <h4 className="text-lg font-bold text-foreground group-hover:text-accent transition-colors">
                     {member.name}
                   </h4>
-                  <p className="text-primary font-medium">{member.position}</p>
+                  <p className="text-accent font-medium">{member.position}</p>
                 </div>
 
                 <div className="space-y-4">
                   <div>
                     <p className="text-sm font-semibold text-foreground mb-2">Experience:</p>
-                    <Badge variant="outline" className="text-primary border-primary">
+                    <Badge variant="outline" className="text-accent border-accent">
                       {member.experience}
                     </Badge>
                   </div>
@@ -146,7 +146,7 @@ const TeamSection = () => {
                     <ul className="space-y-1">
                       {member.specialties.map((specialty, i) => (
                         <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+                          <div className="w-1.5 h-1.5 bg-accent rounded-full"></div>
                           {specialty}
                         </li>
                       ))}
@@ -160,7 +160,7 @@ const TeamSection = () => {
 
         {/* Team CTA */}
         <div className="mt-16 text-center">
-          <Card className="bg-gradient-fire border-0">
+          <Card className="bg-primary border-0">
             <CardContent className="p-8 text-primary-foreground">
               <h3 className="text-3xl font-bold mb-4">Join Our Mission</h3>
               <p className="text-xl mb-6 text-primary-foreground/90">

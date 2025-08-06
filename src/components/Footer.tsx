@@ -32,8 +32,8 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center space-x-3">
-              <div className="bg-gradient-fire p-2 rounded-xl">
-                <Flame className="h-6 w-6 text-primary-foreground" />
+              <div className="bg-accent p-2 rounded-xl">
+                <Flame className="h-6 w-6 text-accent-foreground" />
               </div>
               <div>
                 <h3 className="text-xl font-bold">Fire Training HSE</h3>
@@ -45,7 +45,7 @@ const Footer = () => {
               Building safer communities through expert education and professional development.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="bg-background/10 p-2 rounded-lg hover:bg-primary transition-colors">
+              <a href="#" className="bg-background/10 p-2 rounded-lg hover:bg-accent transition-colors">
                 <Facebook className="h-5 w-5" />
               </a>
               <a href="#" className="bg-background/10 p-2 rounded-lg hover:bg-primary transition-colors">

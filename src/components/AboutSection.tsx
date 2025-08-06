@@ -1,28 +1,45 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Shield, Target, Users, BookOpen } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Shield, Heart, Users, Scale, DollarSign, Building } from "lucide-react";
 import safetyEquipment from "@/assets/safety-equipment.jpg";
 
 const AboutSection = () => {
-  const values = [
+  const priorities = [
     {
       icon: Shield,
-      title: "Safety First",
-      description: "Every training program prioritizes the safety and well-being of participants while building real-world emergency response skills."
+      title: "Safety & Protection",
+      description: "Fire fighters have a dangerous job. We work to make it safer. Learn what tools, resources, and support are available to protect you and your family.",
+      link: "safety-protection"
     },
     {
-      icon: Target,
-      title: "Excellence",
-      description: "We maintain the highest standards in fire safety education and HSE consulting, continuously updating our methods with industry best practices."
+      icon: Heart,
+      title: "Presumptive Health",
+      description: "Fire fighters are at a greater risk for cancer, heart and lung disease, and behavioral health conditions. Find out what presumptive coverage is available.",
+      link: "presumptive-health"
     },
     {
       icon: Users,
-      title: "Community Focus",
-      description: "Building stronger, safer communities through comprehensive training programs that serve both individuals and organizations."
+      title: "Cancer Awareness",
+      description: "Job-related cancer is the leading cause of line-of-duty deaths in the fire service. Learn what we are doing to combat this deadly disease.",
+      link: "cancer-awareness"
     },
     {
-      icon: BookOpen,
-      title: "Continuous Learning",
-      description: "Staying ahead of industry developments and regulations to provide the most current and effective training solutions."
+      icon: Scale,
+      title: "Collective Bargaining",
+      description: "Every worker deserves a voice at the table. Learn what the union is doing to secure local, state, and federal collective bargaining.",
+      link: "collective-bargaining"
+    },
+    {
+      icon: DollarSign,
+      title: "Pay & Benefits",
+      description: "Navigating pension systems and choosing benefits can be daunting. Our union is here to help, offering assistance for members and affiliate leaders.",
+      link: "pay-benefits"
+    },
+    {
+      icon: Building,
+      title: "Training Excellence",
+      description: "Professional development and training programs that meet the highest industry standards for fire safety and emergency response education.",
+      link: "training-excellence"
     }
   ];
 
@@ -30,63 +47,47 @@ const AboutSection = () => {
     <section id="about" className="py-20 bg-background">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
+          <h3 className="text-sm font-semibold tracking-wider text-accent mb-4">OUR PRIORITIES</h3>
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            About Our <span className="text-primary">HSE Department</span>
+            What Matters Most to <span className="text-accent">Fire Fighters</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            With over 15 years of experience in fire safety and HSE consulting, we are dedicated to providing 
-            world-class training programs that save lives and protect communities.
+            Our commitment to fire fighter safety, health, and professional advancement drives everything we do. 
+            These are the core areas where we focus our advocacy, training, and support efforts.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
-          <div className="space-y-6">
-            <h3 className="text-3xl font-bold text-foreground">
-              Leading Fire Safety Education
-            </h3>
-            <p className="text-lg text-muted-foreground">
-              Our comprehensive approach to fire safety training combines theoretical knowledge with hands-on practical experience. 
-              We work with individuals, corporations, and government agencies to develop customized training solutions that meet 
-              specific safety requirements and regulatory compliance standards.
-            </p>
-            <p className="text-lg text-muted-foreground">
-              From basic fire safety awareness to advanced emergency response techniques, our programs are designed by certified 
-              professionals with extensive field experience. We use state-of-the-art equipment and simulation technologies to 
-              create realistic training scenarios that prepare participants for real emergency situations.
-            </p>
-            
-            <div className="bg-gradient-fire p-6 rounded-xl text-primary-foreground">
-              <h4 className="text-xl font-semibold mb-2">Our Mission</h4>
-              <p className="text-primary-foreground/90">
-                To provide exceptional fire safety training and HSE consulting services that protect lives, 
-                property, and the environment while fostering a culture of safety excellence.
-              </p>
-            </div>
-          </div>
-
-          <div className="relative">
-            <img 
-              src={safetyEquipment} 
-              alt="Fire safety equipment and training materials"
-              className="w-full h-96 object-cover rounded-2xl shadow-float"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-2xl"></div>
-          </div>
-        </div>
-
-        {/* Values Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {values.map((value, index) => (
-            <Card key={index} className="hover:shadow-fire transition-all duration-300 group">
-              <CardContent className="p-6 text-center">
-                <div className="bg-gradient-fire p-4 rounded-xl w-fit mx-auto mb-4 group-hover:shadow-glow transition-all duration-300">
-                  <value.icon className="h-8 w-8 text-primary-foreground" />
+        {/* Priorities Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          {priorities.map((priority, index) => (
+            <Card key={index} className="hover:shadow-card transition-all duration-300 group border-0 bg-card">
+              <CardContent className="p-8">
+                <div className="bg-accent p-4 rounded-xl w-fit mb-6 group-hover:shadow-accent transition-all duration-300">
+                  <priority.icon className="h-8 w-8 text-accent-foreground" />
                 </div>
-                <h4 className="text-xl font-semibold text-foreground mb-3">{value.title}</h4>
-                <p className="text-muted-foreground">{value.description}</p>
+                <h4 className="text-2xl font-bold text-foreground mb-4 group-hover:text-accent transition-colors">
+                  {priority.title}
+                </h4>
+                <p className="text-muted-foreground mb-6 leading-relaxed">{priority.description}</p>
+                <Button 
+                  variant="outline" 
+                  className="text-accent border-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300"
+                >
+                  Learn More
+                </Button>
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        {/* Mission Statement */}
+        <div className="bg-primary text-primary-foreground rounded-2xl p-12 text-center">
+          <h3 className="text-3xl md:text-4xl font-bold mb-6">Our Mission</h3>
+          <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-4xl mx-auto leading-relaxed">
+            To advance the rights, safety, and future of fire fighters, emergency medical workers, and rescue workers 
+            through comprehensive training, advocacy, and professional development programs that serve communities 
+            across the United States and Canada.
+          </p>
         </div>
       </div>
     </section>
