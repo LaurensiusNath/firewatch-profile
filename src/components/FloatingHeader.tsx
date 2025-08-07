@@ -13,6 +13,23 @@ import {
 const FloatingHeader = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+
+  const handleDropdown = (menu: string) => {
+    setOpenDropdown(prevState => prevState === menu ? null : menu);
+  };
+
+  // Optional: tambahkan event listener untuk menutup dropdown saat klik di luar
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (openDropdown && !(event.target as Element).closest('.navigation-menu')) {
+        setOpenDropdown(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [openDropdown]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,7 +74,7 @@ const FloatingHeader = () => {
             ? "bg-background/95 backdrop-blur-xl shadow-lg border-b border-border/50" 
             : "bg-background/80 backdrop-blur-sm"
         }`}
-        style={{ top: isScrolled ? '0' : '48px' }}
+        style={{ top: isScrolled ? '0' : '30px' }}
       >
         <nav className="container mx-auto px-6 py-3">
           <div className="flex items-center justify-between">
@@ -74,53 +91,87 @@ const FloatingHeader = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center">
-              <NavigationMenu>
+              <NavigationMenu className="navigation-menu">
                 <NavigationMenuList className="space-x-2">
+                  {/* Untuk menu Training Programs */}
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger className="bg-transparent hover:bg-accent/50 text-foreground font-medium">
+                    <button
+                      className={`group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium 
+                      transition-colors ${
+                        openDropdown === "training"
+                          ? "bg-accent text-accent-foreground"
+                          : "bg-transparent hover:bg-accent hover:text-accent-foreground"
+                      } focus:outline-none`}
+                      onClick={() => handleDropdown("training")}
+                      aria-expanded={openDropdown === "training"}
+                    >
                       Training Programs
-                    </NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                      <div className="grid gap-3 p-6 w-[400px]">
-                        <div className="row-span-3">
+                      <ChevronDown 
+                        className={`ml-1 h-4 w-4 transition-transform duration-200 
+                        ${openDropdown === "training" ? "rotate-180" : "rotate-0"}`} 
+                      />
+                    </button>
+                    {openDropdown === "training" && (
+                      <div 
+                        className="absolute top-full left-0 mt-2 w-[400px] rounded-md border bg-popover p-4 shadow-md 
+                        transition-all duration-200 ease-in-out 
+                        hover:shadow-lg" // tambahkan hover effect
+                      >
+                        <div className="grid gap-3 p-6 w-full">
+                          <div className="row-span-3">
+                            <NavigationMenuLink asChild>
+                              <a className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-primary/50 to-primary p-6 no-underline outline-none focus:shadow-md">
+                                <Shield className="h-6 w-6 text-primary-foreground" />
+                                <div className="mb-2 mt-4 text-lg font-medium text-primary-foreground">
+                                  Fire Safety Training
+                                </div>
+                                <p className="text-sm leading-tight text-primary-foreground/90">
+                                  Comprehensive fire safety and emergency response training programs.
+                                </p>
+                              </a>
+                            </NavigationMenuLink>
+                          </div>
                           <NavigationMenuLink asChild>
-                            <a className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-primary/50 to-primary p-6 no-underline outline-none focus:shadow-md">
-                              <Shield className="h-6 w-6 text-primary-foreground" />
-                              <div className="mb-2 mt-4 text-lg font-medium text-primary-foreground">
-                                Fire Safety Training
-                              </div>
-                              <p className="text-sm leading-tight text-primary-foreground/90">
-                                Comprehensive fire safety and emergency response training programs.
+                            <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                              <div className="text-sm font-medium leading-none">HSE Certification</div>
+                              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                Health, safety, and environmental certification programs.
+                              </p>
+                            </a>
+                          </NavigationMenuLink>
+                          <NavigationMenuLink asChild>
+                            <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                              <div className="text-sm font-medium leading-none">Emergency Response</div>
+                              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                Advanced emergency response and crisis management.
                               </p>
                             </a>
                           </NavigationMenuLink>
                         </div>
-                        <NavigationMenuLink asChild>
-                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                            <div className="text-sm font-medium leading-none">HSE Certification</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Health, safety, and environmental certification programs.
-                            </p>
-                          </a>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                            <div className="text-sm font-medium leading-none">Emergency Response</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Advanced emergency response and crisis management.
-                            </p>
-                          </a>
-                        </NavigationMenuLink>
                       </div>
-                    </NavigationMenuContent>
+                    )}
                   </NavigationMenuItem>
 
+                  {/* Untuk menu Services */}
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger className="bg-transparent hover:bg-accent/50 text-foreground font-medium">
+                    <button
+                      className={`group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium 
+                      transition-colors ${
+                        openDropdown === "services"
+                          ? "bg-accent text-accent-foreground"
+                          : "bg-transparent hover:bg-accent hover:text-accent-foreground"
+                      } focus:outline-none`}
+                      onClick={() => handleDropdown("services")}
+                      aria-expanded={openDropdown === "services"}
+                    >
                       Services
-                    </NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                      <div className="grid gap-3 p-6 w-[500px] grid-cols-2">
+                      <ChevronDown 
+                        className={`ml-1 h-4 w-4 transition-transform duration-200 
+                        ${openDropdown === "services" ? "rotate-180" : "rotate-0"}`} 
+                      />
+                    </button>
+                    {openDropdown === "services" && (
+                      <div className="absolute top-full left-0 mt-2 w-[500px] rounded-md border bg-popover p-4 shadow-md grid grid-cols-2 gap-3">
                         <NavigationMenuLink asChild>
                           <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                             <div className="flex items-center space-x-2">
@@ -166,7 +217,7 @@ const FloatingHeader = () => {
                           </a>
                         </NavigationMenuLink>
                       </div>
-                    </NavigationMenuContent>
+                    )}
                   </NavigationMenuItem>
 
                   <NavigationMenuItem>
