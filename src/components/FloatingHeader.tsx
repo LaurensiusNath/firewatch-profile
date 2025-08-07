@@ -1,263 +1,339 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Flame, Search, Globe, ChevronDown, Shield, Users, BookOpen, Award, Phone, Mail, MapPin } from "lucide-react";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
+import { Menu, X, ChevronDown, Phone, Mail, Globe } from "lucide-react";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 const FloatingHeader = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const { language, setLanguage, t } = useTranslation();
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     element?.scrollIntoView({ behavior: "smooth" });
-    setIsMobileMenuOpen(false);
+    setIsOpen(false);
   };
 
-  return (
-    <>
-      {/* Top Banner */}
-      <div className="bg-primary text-primary-foreground py-2 px-4 text-center text-sm border-b border-primary-foreground/10">
-        <div className="container mx-auto flex items-center justify-between">
-          <div className="flex items-center space-x-4 text-xs">
-            <div className="flex items-center space-x-1">
-              <Phone className="h-3 w-3" />
-              <span>+1 (555) 123-4567</span>
+  useEffect(() => {
+    const handleScroll = () => {
+      const heroSection = document.getElementById('home');
+      if (heroSection) {
+        const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+        setIsScrolled(window.scrollY > heroBottom - 100);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const languages = [
+    { code: 'en', name: 'English', flag: '🇺🇸' },
+    { code: 'id', name: 'Bahasa', flag: '🇮🇩' },
+    { code: 'ja', name: '日本語', flag: '🇯🇵' }
+  ];
+
+  const trainingPrograms = [
+    { key: 'basic', label: t('header.training.basic') },
+    { key: 'advanced', label: t('header.training.advanced') },
+    { key: 'medical', label: t('header.training.medical') },
+    { key: 'hazmat', label: t('header.training.hazmat') }
+  ];
+
+  const services = [
+    { key: 'consulting', label: t('header.services.consulting') },
+    { key: 'certification', label: t('header.services.certification') },
+    { key: 'equipment', label: t('header.services.equipment') }
+  ];
+
+  // Static header (before scroll)
+  if (!isScrolled) {
+    return (
+      <div className="fixed top-0 left-0 right-0 z-50 bg-primary-dark border-b border-primary-foreground/10">
+        {/* Top Contact Bar */}
+        <div className="bg-primary-dark/90 py-2 px-6">
+          <div className="container mx-auto flex justify-between items-center text-sm text-primary-foreground/80">
+            <div className="flex items-center space-x-6">
+              <div className="flex items-center space-x-2">
+                <Phone className="h-4 w-4" />
+                <span>{t('header.phone')}: +1 (555) 123-4567</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Mail className="h-4 w-4" />
+                <span>{t('header.email')}: info@firetraining.org</span>
+              </div>
             </div>
-            <div className="flex items-center space-x-1">
-              <Mail className="h-3 w-3" />
-              <span>info@firetraininghse.org</span>
+            
+            {/* Language Switcher */}
+            <div className="relative">
+              <button
+                onClick={() => setActiveDropdown(activeDropdown === 'language' ? null : 'language')}
+                className="flex items-center space-x-2 px-3 py-1 rounded hover:bg-primary-foreground/10 transition-colors"
+              >
+                <Globe className="h-4 w-4" />
+                <span>{languages.find(l => l.code === language)?.flag}</span>
+                <span>{languages.find(l => l.code === language)?.name}</span>
+                <ChevronDown className="h-4 w-4" />
+              </button>
+              {activeDropdown === 'language' && (
+                <div className="absolute top-full right-0 mt-1 bg-card border border-border rounded-lg shadow-lg min-w-[120px] z-50">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => {
+                        setLanguage(lang.code as any);
+                        setActiveDropdown(null);
+                      }}
+                      className="w-full text-left px-4 py-2 hover:bg-muted transition-colors first:rounded-t-lg last:rounded-b-lg flex items-center space-x-2"
+                    >
+                      <span>{lang.flag}</span>
+                      <span>{lang.name}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
-          </div>
-          <div className="flex items-center space-x-2 text-xs">
-            <Globe className="h-3 w-3" />
-            <span>EN | FR | ES</span>
           </div>
         </div>
-      </div>
 
-      {/* Main Header */}
-      <header 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${
-          isScrolled 
-            ? "bg-background/95 backdrop-blur-xl shadow-lg border-b border-border/50" 
-            : "bg-background/80 backdrop-blur-sm"
-        }`}
-        style={{ top: isScrolled ? '0' : '48px' }}
-      >
-        <nav className="container mx-auto px-6 py-3">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <div className="flex items-center space-x-3">
-              <div className="bg-primary p-2.5 rounded-xl shadow-lg">
-                <Flame className="h-7 w-7 text-primary-foreground" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-foreground">FIRE TRAINING HSE</h1>
-                <p className="text-xs text-muted-foreground">International Association of Fire Safety</p>
-              </div>
+        {/* Main Navigation */}
+        <div className="py-4 px-6">
+          <div className="container mx-auto flex justify-between items-center">
+            <div className="text-2xl font-bold text-primary-foreground">
+              FIRE TRAINING <span className="text-accent">HSE</span>
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center">
-              <NavigationMenu>
-                <NavigationMenuList className="space-x-2">
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger className="bg-transparent hover:bg-accent/50 text-foreground font-medium">
-                      Training Programs
-                    </NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                      <div className="grid gap-3 p-6 w-[400px]">
-                        <div className="row-span-3">
-                          <NavigationMenuLink asChild>
-                            <a className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-primary/50 to-primary p-6 no-underline outline-none focus:shadow-md">
-                              <Shield className="h-6 w-6 text-primary-foreground" />
-                              <div className="mb-2 mt-4 text-lg font-medium text-primary-foreground">
-                                Fire Safety Training
-                              </div>
-                              <p className="text-sm leading-tight text-primary-foreground/90">
-                                Comprehensive fire safety and emergency response training programs.
-                              </p>
-                            </a>
-                          </NavigationMenuLink>
-                        </div>
-                        <NavigationMenuLink asChild>
-                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                            <div className="text-sm font-medium leading-none">HSE Certification</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Health, safety, and environmental certification programs.
-                            </p>
-                          </a>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                            <div className="text-sm font-medium leading-none">Emergency Response</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Advanced emergency response and crisis management.
-                            </p>
-                          </a>
-                        </NavigationMenuLink>
-                      </div>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger className="bg-transparent hover:bg-accent/50 text-foreground font-medium">
-                      Services
-                    </NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                      <div className="grid gap-3 p-6 w-[500px] grid-cols-2">
-                        <NavigationMenuLink asChild>
-                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                            <div className="flex items-center space-x-2">
-                              <Users className="h-4 w-4" />
-                              <div className="text-sm font-medium leading-none">Consultation</div>
-                            </div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Professional safety consultation and assessment services.
-                            </p>
-                          </a>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                            <div className="flex items-center space-x-2">
-                              <BookOpen className="h-4 w-4" />
-                              <div className="text-sm font-medium leading-none">Documentation</div>
-                            </div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Safety documentation and compliance management.
-                            </p>
-                          </a>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                            <div className="flex items-center space-x-2">
-                              <Award className="h-4 w-4" />
-                              <div className="text-sm font-medium leading-none">Certification</div>
-                            </div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Professional certification and accreditation programs.
-                            </p>
-                          </a>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                            <div className="flex items-center space-x-2">
-                              <Shield className="h-4 w-4" />
-                              <div className="text-sm font-medium leading-none">Risk Assessment</div>
-                            </div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Comprehensive workplace risk assessment and mitigation.
-                            </p>
-                          </a>
-                        </NavigationMenuLink>
-                      </div>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-
-                  <NavigationMenuItem>
-                    <NavigationMenuLink 
-                      onClick={() => scrollToSection("about")}
-                      className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none cursor-pointer"
+            <nav className="hidden md:flex items-center space-x-8">
+              <div className="relative group">
+                <button className="text-primary-foreground hover:text-accent transition-colors font-medium flex items-center space-x-1">
+                  <span>{t('header.training')}</span>
+                  <ChevronDown className="h-4 w-4" />
+                </button>
+                <div className="absolute top-full left-0 mt-2 bg-card border border-border rounded-lg shadow-lg min-w-[200px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  {trainingPrograms.map((program) => (
+                    <a
+                      key={program.key}
+                      href="#"
+                      className="block px-4 py-3 hover:bg-muted transition-colors first:rounded-t-lg last:rounded-b-lg"
                     >
-                      About
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-
-                  <NavigationMenuItem>
-                    <NavigationMenuLink 
-                      onClick={() => scrollToSection("contact")}
-                      className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none cursor-pointer"
-                    >
-                      Contact
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                </NavigationMenuList>
-              </NavigationMenu>
-              
-              <div className="flex items-center space-x-3 ml-6">
-                <Button 
-                  size="sm"
-                  variant="outline"
-                  className="h-9"
-                >
-                  <Search className="h-4 w-4 mr-2" />
-                  Search
-                </Button>
-                <Button 
-                  onClick={() => scrollToSection("contact")}
-                  className="h-9 bg-primary hover:bg-primary/90"
-                >
-                  Join Us
-                </Button>
-              </div>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-            >
-              {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
-          </div>
-
-          {/* Mobile Menu */}
-          {isMobileMenuOpen && (
-            <div className="lg:hidden mt-4 p-4 bg-background/95 backdrop-blur-xl rounded-xl border border-border/50 shadow-lg">
-              <div className="flex flex-col space-y-3">
-                <button 
-                  onClick={() => scrollToSection("services")}
-                  className="text-left p-3 rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors font-medium text-foreground"
-                >
-                  Training Programs
-                </button>
-                <button 
-                  onClick={() => scrollToSection("services")}
-                  className="text-left p-3 rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors font-medium text-foreground"
-                >
-                  Services
-                </button>
-                <button 
-                  onClick={() => scrollToSection("about")}
-                  className="text-left p-3 rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors font-medium text-foreground"
-                >
-                  About
-                </button>
-                <button 
-                  onClick={() => scrollToSection("contact")}
-                  className="text-left p-3 rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors font-medium text-foreground"
-                >
-                  Contact
-                </button>
-                <div className="pt-3 border-t border-border/50">
-                  <Button 
-                    onClick={() => scrollToSection("contact")}
-                    className="w-full bg-primary hover:bg-primary/90"
-                  >
-                    Join Us
-                  </Button>
+                      {program.label}
+                    </a>
+                  ))}
                 </div>
               </div>
+
+              <div className="relative group">
+                <button className="text-primary-foreground hover:text-accent transition-colors font-medium flex items-center space-x-1">
+                  <span>{t('header.services')}</span>
+                  <ChevronDown className="h-4 w-4" />
+                </button>
+                <div className="absolute top-full left-0 mt-2 bg-card border border-border rounded-lg shadow-lg min-w-[200px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  {services.map((service) => (
+                    <a
+                      key={service.key}
+                      href="#"
+                      className="block px-4 py-3 hover:bg-muted transition-colors first:rounded-t-lg last:rounded-b-lg"
+                    >
+                      {service.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <button
+                onClick={() => scrollToSection("about")}
+                className="text-primary-foreground hover:text-accent transition-colors font-medium"
+              >
+                {t('header.about')}
+              </button>
+              
+              <button
+                onClick={() => scrollToSection("contact")}
+                className="text-primary-foreground hover:text-accent transition-colors font-medium"
+              >
+                {t('header.contact')}
+              </button>
+            </nav>
+
+            {/* Mobile Menu Button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden text-primary-foreground"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </Button>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        {isOpen && (
+          <div className="md:hidden bg-primary-dark/95 backdrop-blur-sm border-t border-primary-foreground/10">
+            <div className="container mx-auto px-6 py-4 space-y-4">
+              <button className="block w-full text-left text-primary-foreground hover:text-accent transition-colors font-medium">
+                {t('header.training')}
+              </button>
+              <button className="block w-full text-left text-primary-foreground hover:text-accent transition-colors font-medium">
+                {t('header.services')}
+              </button>
+              <button
+                onClick={() => scrollToSection("about")}
+                className="block w-full text-left text-primary-foreground hover:text-accent transition-colors font-medium"
+              >
+                {t('header.about')}
+              </button>
+              <button
+                onClick={() => scrollToSection("contact")}
+                className="block w-full text-left text-primary-foreground hover:text-accent transition-colors font-medium"
+              >
+                {t('header.contact')}
+              </button>
             </div>
-          )}
-        </nav>
-      </header>
-    </>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // Floating header (after scroll)
+  return (
+    <header className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-[95%] max-w-6xl">
+      <div className="bg-card/95 backdrop-blur-md rounded-2xl border border-border shadow-xl">
+        <div className="flex justify-between items-center px-6 py-4">
+          <div className="text-xl font-bold text-foreground">
+            FIRE <span className="text-accent">HSE</span>
+          </div>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-6">
+            <div className="relative">
+              <button
+                onClick={() => setActiveDropdown(activeDropdown === 'training' ? null : 'training')}
+                className="text-foreground hover:text-accent transition-colors font-medium flex items-center space-x-1"
+              >
+                <span>{t('header.training')}</span>
+                <ChevronDown className="h-4 w-4" />
+              </button>
+              {activeDropdown === 'training' && (
+                <div className="absolute top-full left-0 mt-2 bg-card border border-border rounded-lg shadow-lg min-w-[200px] z-50">
+                  {trainingPrograms.map((program) => (
+                    <a
+                      key={program.key}
+                      href="#"
+                      className="block px-4 py-3 hover:bg-muted transition-colors first:rounded-t-lg last:rounded-b-lg"
+                    >
+                      {program.label}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="relative">
+              <button
+                onClick={() => setActiveDropdown(activeDropdown === 'services' ? null : 'services')}
+                className="text-foreground hover:text-accent transition-colors font-medium flex items-center space-x-1"
+              >
+                <span>{t('header.services')}</span>
+                <ChevronDown className="h-4 w-4" />
+              </button>
+              {activeDropdown === 'services' && (
+                <div className="absolute top-full left-0 mt-2 bg-card border border-border rounded-lg shadow-lg min-w-[200px] z-50">
+                  {services.map((service) => (
+                    <a
+                      key={service.key}
+                      href="#"
+                      className="block px-4 py-3 hover:bg-muted transition-colors first:rounded-t-lg last:rounded-b-lg"
+                    >
+                      {service.label}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <button
+              onClick={() => scrollToSection("about")}
+              className="text-foreground hover:text-accent transition-colors font-medium"
+            >
+              {t('header.about')}
+            </button>
+
+            <button
+              onClick={() => scrollToSection("contact")}
+              className="text-foreground hover:text-accent transition-colors font-medium"
+            >
+              {t('header.contact')}
+            </button>
+
+            {/* Language Switcher */}
+            <div className="relative">
+              <button
+                onClick={() => setActiveDropdown(activeDropdown === 'language' ? null : 'language')}
+                className="flex items-center space-x-1 px-3 py-1 rounded-lg hover:bg-muted transition-colors"
+              >
+                <span>{languages.find(l => l.code === language)?.flag}</span>
+                <ChevronDown className="h-4 w-4" />
+              </button>
+              {activeDropdown === 'language' && (
+                <div className="absolute top-full right-0 mt-1 bg-card border border-border rounded-lg shadow-lg min-w-[120px] z-50">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => {
+                        setLanguage(lang.code as any);
+                        setActiveDropdown(null);
+                      }}
+                      className="w-full text-left px-4 py-2 hover:bg-muted transition-colors first:rounded-t-lg last:rounded-b-lg flex items-center space-x-2"
+                    >
+                      <span>{lang.flag}</span>
+                      <span>{lang.name}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </Button>
+        </div>
+
+        {/* Mobile Menu */}
+        {isOpen && (
+          <div className="md:hidden border-t border-border px-6 py-4 space-y-4">
+            <button className="block w-full text-left text-foreground hover:text-accent transition-colors font-medium">
+              {t('header.training')}
+            </button>
+            <button className="block w-full text-left text-foreground hover:text-accent transition-colors font-medium">
+              {t('header.services')}
+            </button>
+            <button
+              onClick={() => scrollToSection("about")}
+              className="block w-full text-left text-foreground hover:text-accent transition-colors font-medium"
+            >
+              {t('header.about')}
+            </button>
+            <button
+              onClick={() => scrollToSection("contact")}
+              className="block w-full text-left text-foreground hover:text-accent transition-colors font-medium"
+            >
+              {t('header.contact')}
+            </button>
+          </div>
+        )}
+      </div>
+    </header>
   );
 };
 
