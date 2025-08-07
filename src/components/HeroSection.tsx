@@ -51,15 +51,15 @@ const HeroSection = () => {
 
           {/* Stats Section */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-16 max-w-4xl mx-auto">
-            <div className="text-center">
+            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20 text-center">
               <div className="text-3xl md:text-4xl font-bold text-accent mb-2">50,000+</div>
               <div className="text-primary-foreground/80">Professional Members</div>
             </div>
-            <div className="text-center">
+            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20 text-center">
               <div className="text-3xl md:text-4xl font-bold text-accent mb-2">500+</div>
               <div className="text-primary-foreground/80">Affiliate Organizations</div>
             </div>
-            <div className="text-center">
+            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20 text-center">
               <div className="text-3xl md:text-4xl font-bold text-accent mb-2">85%</div>
               <div className="text-primary-foreground/80">Population Protected</div>
             </div>
