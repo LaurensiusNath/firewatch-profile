@@ -1,11 +1,9 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Shield, Heart, Users, Scale, DollarSign, Building } from "lucide-react";
-import { useTranslation } from "@/contexts/TranslationContext";
 import safetyEquipment from "@/assets/safety-equipment.jpg";
 
 const AboutSection = () => {
-  const { t } = useTranslation();
   const priorities = [
     {
       icon: Shield,
