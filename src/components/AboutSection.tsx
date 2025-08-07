@@ -47,7 +47,9 @@ const AboutSection = () => {
     <section id="about" className="py-20 bg-background">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h3 className="text-sm font-semibold tracking-wider text-accent mb-4">OUR PRIORITIES</h3>
+          <h3 className="inline-block bg-accent/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-accent/30 text-sm font-semibold tracking-wider text-accent mb-4">
+            OUR PRIORITIES
+          </h3>
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
             What Matters Most to <span className="text-accent">Fire Fighters</span>
           </h2>
@@ -60,7 +62,7 @@ const AboutSection = () => {
         {/* Priorities Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {priorities.map((priority, index) => (
-            <Card key={index} className="hover:shadow-card transition-all duration-300 group border-0 bg-card">
+            <Card key={index} className="hover:shadow-card transition-all duration-300 group border-0 bg-card hover:ring-2 hover:ring-accent">
               <CardContent className="p-8">
                 <div className="bg-accent p-4 rounded-xl w-fit mb-6 group-hover:shadow-accent transition-all duration-300">
                   <priority.icon className="h-8 w-8 text-accent-foreground" />
