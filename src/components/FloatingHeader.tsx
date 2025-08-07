@@ -1,6 +1,14 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Flame, Phone, Mail, Search, Globe } from "lucide-react";
+import { Menu, X, Flame, Search, Globe, ChevronDown, Shield, Users, BookOpen, Award, Phone, Mail, MapPin } from "lucide-react";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 
 const FloatingHeader = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,85 +31,178 @@ const FloatingHeader = () => {
   return (
     <>
       {/* Top Banner */}
-      <div className="bg-accent text-accent-foreground py-2 px-4 text-center text-sm">
-        <p className="font-medium">Professional Fire Safety Training & HSE Services | <span className="font-semibold">Call 24/7: +1 (555) 123-4567</span></p>
+      <div className="bg-primary text-primary-foreground py-2 px-4 text-center text-sm border-b border-primary-foreground/10">
+        <div className="container mx-auto flex items-center justify-between">
+          <div className="flex items-center space-x-4 text-xs">
+            <div className="flex items-center space-x-1">
+              <Phone className="h-3 w-3" />
+              <span>+1 (555) 123-4567</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <Mail className="h-3 w-3" />
+              <span>info@firetraininghse.org</span>
+            </div>
+          </div>
+          <div className="flex items-center space-x-2 text-xs">
+            <Globe className="h-3 w-3" />
+            <span>EN | FR | ES</span>
+          </div>
+        </div>
       </div>
 
       {/* Main Header */}
       <header 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${
           isScrolled 
-            ? "bg-primary/95 backdrop-blur-lg shadow-professional" 
-            : "bg-primary"
+            ? "bg-background/95 backdrop-blur-xl shadow-lg border-b border-border/50" 
+            : "bg-background/80 backdrop-blur-sm"
         }`}
-        style={{ top: isScrolled ? '0' : '40px' }}
+        style={{ top: isScrolled ? '0' : '48px' }}
       >
-        <nav className="container mx-auto px-6 py-4">
+        <nav className="container mx-auto px-6 py-3">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <div className="flex items-center space-x-4">
-              <div className="bg-accent p-2 rounded-lg">
-                <Flame className="h-8 w-8 text-accent-foreground" />
+            <div className="flex items-center space-x-3">
+              <div className="bg-primary p-2.5 rounded-xl shadow-lg">
+                <Flame className="h-7 w-7 text-primary-foreground" />
               </div>
-              <div className="text-primary-foreground">
-                <h1 className="text-2xl font-bold">FIRE TRAINING HSE</h1>
-                <p className="text-sm text-primary-foreground/80">International Association of Fire Safety</p>
+              <div>
+                <h1 className="text-xl font-bold text-foreground">FIRE TRAINING HSE</h1>
+                <p className="text-xs text-muted-foreground">International Association of Fire Safety</p>
               </div>
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-8">
-              <div className="flex items-center space-x-6 text-primary-foreground">
-                <button 
-                  onClick={() => scrollToSection("about")}
-                  className="hover:text-accent transition-colors font-medium"
-                >
-                  ADVOCACY
-                </button>
-                <button 
-                  onClick={() => scrollToSection("services")}
-                  className="hover:text-accent transition-colors font-medium"
-                >
-                  HEALTH & SAFETY
-                </button>
-                <button 
-                  onClick={() => scrollToSection("services")}
-                  className="hover:text-accent transition-colors font-medium"
-                >
-                  TRAINING
-                </button>
-                <button 
-                  onClick={() => scrollToSection("team")}
-                  className="hover:text-accent transition-colors font-medium"
-                >
-                  EVENTS
-                </button>
-                <button 
-                  onClick={() => scrollToSection("contact")}
-                  className="hover:text-accent transition-colors font-medium"
-                >
-                  NEWSROOM
-                </button>
-              </div>
+            <div className="hidden lg:flex items-center">
+              <NavigationMenu>
+                <NavigationMenuList className="space-x-2">
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="bg-transparent hover:bg-accent/50 text-foreground font-medium">
+                      Training Programs
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <div className="grid gap-3 p-6 w-[400px]">
+                        <div className="row-span-3">
+                          <NavigationMenuLink asChild>
+                            <a className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-primary/50 to-primary p-6 no-underline outline-none focus:shadow-md">
+                              <Shield className="h-6 w-6 text-primary-foreground" />
+                              <div className="mb-2 mt-4 text-lg font-medium text-primary-foreground">
+                                Fire Safety Training
+                              </div>
+                              <p className="text-sm leading-tight text-primary-foreground/90">
+                                Comprehensive fire safety and emergency response training programs.
+                              </p>
+                            </a>
+                          </NavigationMenuLink>
+                        </div>
+                        <NavigationMenuLink asChild>
+                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                            <div className="text-sm font-medium leading-none">HSE Certification</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              Health, safety, and environmental certification programs.
+                            </p>
+                          </a>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                            <div className="text-sm font-medium leading-none">Emergency Response</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              Advanced emergency response and crisis management.
+                            </p>
+                          </a>
+                        </NavigationMenuLink>
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="bg-transparent hover:bg-accent/50 text-foreground font-medium">
+                      Services
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <div className="grid gap-3 p-6 w-[500px] grid-cols-2">
+                        <NavigationMenuLink asChild>
+                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                            <div className="flex items-center space-x-2">
+                              <Users className="h-4 w-4" />
+                              <div className="text-sm font-medium leading-none">Consultation</div>
+                            </div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              Professional safety consultation and assessment services.
+                            </p>
+                          </a>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                            <div className="flex items-center space-x-2">
+                              <BookOpen className="h-4 w-4" />
+                              <div className="text-sm font-medium leading-none">Documentation</div>
+                            </div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              Safety documentation and compliance management.
+                            </p>
+                          </a>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                            <div className="flex items-center space-x-2">
+                              <Award className="h-4 w-4" />
+                              <div className="text-sm font-medium leading-none">Certification</div>
+                            </div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              Professional certification and accreditation programs.
+                            </p>
+                          </a>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                            <div className="flex items-center space-x-2">
+                              <Shield className="h-4 w-4" />
+                              <div className="text-sm font-medium leading-none">Risk Assessment</div>
+                            </div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              Comprehensive workplace risk assessment and mitigation.
+                            </p>
+                          </a>
+                        </NavigationMenuLink>
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+
+                  <NavigationMenuItem>
+                    <NavigationMenuLink 
+                      onClick={() => scrollToSection("about")}
+                      className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none cursor-pointer"
+                    >
+                      About
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+
+                  <NavigationMenuItem>
+                    <NavigationMenuLink 
+                      onClick={() => scrollToSection("contact")}
+                      className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none cursor-pointer"
+                    >
+                      Contact
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
               
-              <div className="flex items-center space-x-4">
-                <div className="flex items-center space-x-2 text-primary-foreground/80">
-                  <Globe className="h-4 w-4" />
-                  <span className="text-sm">EN/FR/ES</span>
-                </div>
+              <div className="flex items-center space-x-3 ml-6">
                 <Button 
                   size="sm"
                   variant="outline"
-                  className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+                  className="h-9"
                 >
-                  <Search className="h-4 w-4 mr-1" />
+                  <Search className="h-4 w-4 mr-2" />
                   Search
                 </Button>
                 <Button 
                   onClick={() => scrollToSection("contact")}
-                  className="bg-accent hover:bg-accent/90 text-accent-foreground"
+                  className="h-9 bg-primary hover:bg-primary/90"
                 >
-                  MEMBERS
+                  Join Us
                 </Button>
               </div>
             </div>
@@ -109,7 +210,7 @@ const FloatingHeader = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg bg-accent text-accent-foreground"
+              className="lg:hidden p-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
             >
               {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -117,44 +218,38 @@ const FloatingHeader = () => {
 
           {/* Mobile Menu */}
           {isMobileMenuOpen && (
-            <div className="lg:hidden mt-4 p-4 bg-primary-dark rounded-xl">
-              <div className="flex flex-col space-y-4 text-primary-foreground">
+            <div className="lg:hidden mt-4 p-4 bg-background/95 backdrop-blur-xl rounded-xl border border-border/50 shadow-lg">
+              <div className="flex flex-col space-y-3">
+                <button 
+                  onClick={() => scrollToSection("services")}
+                  className="text-left p-3 rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors font-medium text-foreground"
+                >
+                  Training Programs
+                </button>
+                <button 
+                  onClick={() => scrollToSection("services")}
+                  className="text-left p-3 rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors font-medium text-foreground"
+                >
+                  Services
+                </button>
                 <button 
                   onClick={() => scrollToSection("about")}
-                  className="text-left hover:text-accent transition-colors font-medium"
+                  className="text-left p-3 rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors font-medium text-foreground"
                 >
-                  ADVOCACY
-                </button>
-                <button 
-                  onClick={() => scrollToSection("services")}
-                  className="text-left hover:text-accent transition-colors font-medium"
-                >
-                  HEALTH & SAFETY
-                </button>
-                <button 
-                  onClick={() => scrollToSection("services")}
-                  className="text-left hover:text-accent transition-colors font-medium"
-                >
-                  TRAINING
-                </button>
-                <button 
-                  onClick={() => scrollToSection("team")}
-                  className="text-left hover:text-accent transition-colors font-medium"
-                >
-                  EVENTS
+                  About
                 </button>
                 <button 
                   onClick={() => scrollToSection("contact")}
-                  className="text-left hover:text-accent transition-colors font-medium"
+                  className="text-left p-3 rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors font-medium text-foreground"
                 >
-                  NEWSROOM
+                  Contact
                 </button>
-                <div className="pt-4 border-t border-primary-foreground/20">
+                <div className="pt-3 border-t border-border/50">
                   <Button 
                     onClick={() => scrollToSection("contact")}
-                    className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
+                    className="w-full bg-primary hover:bg-primary/90"
                   >
-                    MEMBERS
+                    Join Us
                   </Button>
                 </div>
               </div>
