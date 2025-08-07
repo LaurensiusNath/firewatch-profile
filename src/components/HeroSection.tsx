@@ -9,39 +9,31 @@ const HeroSection = () => {
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center bg-primary overflow-hidden">
-      {/* Background with Pattern */}
-      <div className="absolute inset-0">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
-          style={{ backgroundImage: `url(${heroImage})` }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-dark/90 to-primary/95" />
-        {/* Professional Pattern Overlay */}
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0)`,
-          backgroundSize: '30px 30px'
-        }} />
-      </div>
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Clean Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary-dark to-primary" />
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10"
+        style={{ backgroundImage: `url(${heroImage})` }}
+      />
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 text-primary-foreground pt-32">
-        <div className="max-w-6xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-            FIGHTING FOR THOSE ON 
-            <span className="block text-accent">THE FRONTLINES</span>
+      <div className="relative z-10 container mx-auto px-6 text-primary-foreground pt-20">
+        <div className="max-w-5xl mx-auto text-center space-y-8">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
+            FIGHTING FOR THOSE ON{" "}
+            <span className="text-accent">THE FRONTLINES</span>
           </h1>
           
-          <p className="text-xl md:text-2xl mb-8 text-primary-foreground/90 max-w-4xl">
+          <p className="text-lg md:text-xl lg:text-2xl text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed">
             The Fire Training HSE Association represents one of the largest and most influential fire safety 
-            training organizations. We are committed to advancing the rights, safety, and future of fire fighters, 
-            emergency medical workers, and rescue workers across the United States and Canada.
+            training organizations, advancing the rights and safety of firefighters across North America.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-6 mb-12">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <Button 
               size="lg" 
-              className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8 py-4 font-semibold"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8 py-4 font-semibold shadow-lg"
               onClick={() => scrollToSection("about")}
             >
               WHO WE ARE
@@ -50,27 +42,27 @@ const HeroSection = () => {
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary text-lg px-8 py-4 font-semibold transition-all duration-300"
+              className="border-2 border-primary-foreground/80 text-primary-foreground hover:bg-primary-foreground hover:text-primary text-lg px-8 py-4 font-semibold backdrop-blur-sm"
               onClick={() => scrollToSection("services")}
             >
               JOIN US
             </Button>
           </div>
 
-        </div>
-      </div>
-
-      {/* Commitment Section */}
-      <div className="absolute bottom-0 left-0 right-0 bg-primary-dark/90 backdrop-blur-sm">
-        <div className="container mx-auto px-6 py-12">
-          <div className="text-center text-primary-foreground">
-            <h3 className="text-sm font-semibold tracking-wider text-accent mb-4">OUR COMMITMENT</h3>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">OVER A CENTURY OF SERVICE</h2>
-            <p className="text-lg md:text-xl text-primary-foreground/90 max-w-4xl mx-auto">
-              The Fire Training HSE Association represents over 50,000 full-time professional fire fighters 
-              and emergency medical workers in 500+ affiliates across the United States and Canada. 
-              Our members proudly protect more than 85% of the population of our two great nations.
-            </p>
+          {/* Stats Section */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-16 max-w-4xl mx-auto">
+            <div className="text-center">
+              <div className="text-3xl md:text-4xl font-bold text-accent mb-2">50,000+</div>
+              <div className="text-primary-foreground/80">Professional Members</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl md:text-4xl font-bold text-accent mb-2">500+</div>
+              <div className="text-primary-foreground/80">Affiliate Organizations</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl md:text-4xl font-bold text-accent mb-2">85%</div>
+              <div className="text-primary-foreground/80">Population Protected</div>
+            </div>
           </div>
         </div>
       </div>
