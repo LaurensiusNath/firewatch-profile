@@ -65,7 +65,9 @@ const ServicesSection = () => {
     <section id="services" className="py-20 bg-muted/30">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h3 className="text-sm font-semibold tracking-wider text-accent mb-4">PROFESSIONAL DEVELOPMENT</h3>
+          <h3 className="inline-block bg-accent/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-accent/30 text-sm font-semibold tracking-wider text-accent mb-4">
+            PROFESSIONAL DEVELOPMENT
+          </h3>
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
             Training <span className="text-accent">Programs</span>
           </h2>
@@ -79,9 +81,12 @@ const ServicesSection = () => {
           {trainings.map((training, index) => (
             <Card key={index} className={`transition-all duration-300 group border-0 ${
               training.featured 
-                ? 'bg-primary text-primary-foreground shadow-professional ring-2 ring-accent' 
-                : 'bg-card hover:shadow-card'
+                ? 'bg-primary text-primary-foreground shadow-professional relative' 
+                : 'bg-card hover:shadow-card hover:ring-2 hover:ring-accent'
             }`}>
+              {training.featured && (
+                <div className="pointer-events-none absolute inset-0 rounded-xl ring-2 ring-accent animate-pulse"></div>
+              )}
               <CardHeader className="pb-4">
                 <div className="flex items-center justify-between mb-4">
                   <div className={`p-4 rounded-xl w-fit ${
