@@ -1,18 +1,18 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Shield, Heart, Users, Scale, DollarSign, Building } from "lucide-react";
+import { Shield, Heart, Users, Scale, DollarSign, Building, ShieldCheck, Bandage, HeartPulse } from "lucide-react";
 import safetyEquipment from "@/assets/safety-equipment.jpg";
 
 const AboutSection = () => {
   const priorities = [
     {
-      icon: Shield,
+      icon: ShieldCheck,
       title: "Safety & Protection",
       description: "Fire fighters have a dangerous job. We work to make it safer. Learn what tools, resources, and support are available to protect you and your family.",
       link: "safety-protection"
     },
     {
-      icon: Heart,
+      icon: HeartPulse,
       title: "Presumptive Health",
       description: "Fire fighters are at a greater risk for cancer, heart and lung disease, and behavioral health conditions. Find out what presumptive coverage is available.",
       link: "presumptive-health"
