@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Flame, Search, Globe, ChevronDown, Shield, Users, BookOpen, Award, Phone, Mail, MapPin } from "lucide-react";
+import { Menu, X, Search, Globe, ChevronDown, Shield, Users, BookOpen, Award, Phone, Mail, MapPin } from "lucide-react";
+import logoBadak from "@/assets/logobadak.png";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -9,6 +10,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+
 
 const FloatingHeader = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -57,7 +59,7 @@ const FloatingHeader = () => {
             </div>
             <div className="flex items-center space-x-1">
               <Mail className="h-3 w-3" />
-              <span>info@firetraininghse.org</span>
+              <span>badak@lng</span>
             </div>
           </div>
           <div className="flex items-center space-x-2 text-xs">
@@ -80,12 +82,10 @@ const FloatingHeader = () => {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center space-x-3">
-              <div className="bg-primary p-2.5 rounded-xl shadow-lg">
-                <Flame className="h-7 w-7 text-primary-foreground" />
-              </div>
+              <img src={logoBadak} alt="HSE Badak LNG Logo" className="h-10 w-auto" />
               <div>
-                <h1 className="text-xl font-bold text-foreground">FIRE TRAINING HSE</h1>
-                <p className="text-xs text-muted-foreground">International Association of Fire Safety</p>
+                <h1 className="text-xl font-bold text-foreground">HSE BADAK LNG</h1>
+                <p className="text-xs text-muted-foreground">Fire Safety Departement</p>
               </div>
             </div>
 
