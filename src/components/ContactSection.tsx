@@ -40,7 +40,7 @@ const ContactSection = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
             Get In <span className="text-primary">Touch</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-l text-muted-foreground max-w-3xl mx-auto">
             Ready to enhance your fire safety knowledge or need HSE consulting? 
             Contact us today to discuss your training needs and safety requirements.
           </p>
@@ -151,6 +151,7 @@ const ContactSection = () => {
                   size="lg"
                   variant="outline"
                   className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary transition-all duration-300"
+                  onClick={() => window.location.href = 'tel:12345'}
                 >
                   <Phone className="h-5 w-5 mr-2" />
                   Call Emergency Line

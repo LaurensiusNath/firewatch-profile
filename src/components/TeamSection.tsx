@@ -1,7 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Award, Users, BookOpen, Shield } from "lucide-react";
-import teamPhoto from "@/assets/team-photo.jpg";
 
 const TeamSection = () => {
   const teamMembers = [
@@ -79,14 +78,14 @@ const TeamSection = () => {
         <div className="mb-16">
           <div className="relative">
             <img 
-              src={teamPhoto} 
+              src={"/teamFireTrainingGround.webp"} 
               alt="Fire Training HSE Department Team"
-              className="w-full h-96 object-cover rounded-2xl shadow-float"
+              className="w-full max-h-96 object-cover rounded-2xl shadow-float"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent rounded-2xl"></div>
-            <div className="absolute bottom-6 left-6 text-primary-foreground">
-              <h3 className="text-2xl font-bold mb-2">Dedicated to Safety Excellence</h3>
-              <p className="text-primary-foreground/90">Professional fire safety and HSE training experts</p>
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent rounded-"></div>
+            <div className="absolute bottom-6 left-6 text-primary-foreground inline-block bg-white/10 backdrop-blur-md px-4 py-2 rounded-lg border border-white/20 text-l tracking-wider text-white mb-2">
+              <h3 className="font-bold"> Dedicated to Safety Excellence</h3>
+              <p className="font-normal text-sm text-primary-foreground/90">Professional fire safety and HSE training experts</p>
             </div>
           </div>
         </div>
@@ -163,7 +162,7 @@ const TeamSection = () => {
           <Card className="bg-primary border-0">
             <CardContent className="p-8 text-primary-foreground">
               <h3 className="text-3xl font-bold mb-4">Join Our Mission</h3>
-              <p className="text-xl mb-6 text-primary-foreground/90">
+              <p className="text-l mb-2 text-primary-foreground/90">
                 We're always looking for qualified fire safety professionals to join our team
               </p>
               <div className="text-primary-foreground/80">
