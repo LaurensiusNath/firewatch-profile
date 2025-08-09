@@ -1,4 +1,5 @@
-import { Flame, Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
+import { Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
+import logoBadak from "@/assets/logobadak.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -32,30 +33,44 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center space-x-3">
-              <div className="bg-accent p-2 rounded-xl">
-                <Flame className="h-6 w-6 text-accent-foreground" />
-              </div>
+              <img src={logoBadak} alt="Fire Training HSE Logo" className="h-10 w-auto" />
               <div>
-                <h3 className="text-xl font-bold">Fire Training HSE</h3>
-                <p className="text-background/70 text-sm">Excellence in Safety</p>
+                <h3 className="text-xl font-bold"> Badak Lng</h3>
+                <p className="text-background/70 text-sm">Fire Training Ground</p>
               </div>
             </div>
-            <p className="text-background/80">
+            <p className="text-white/80 text-sm">
               Leading provider of fire safety training and HSE consulting services. 
               Building safer communities through expert education and professional development.
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="bg-background/10 p-2 rounded-lg hover:bg-accent transition-colors">
-                <Facebook className="h-5 w-5" />
+            <div className="flex flex-wrap gap-4 pt-2">
+              {/* Facebook */}
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="p-4 rounded-full backdrop-blur-lg border border-indigo-500/20 bg-gradient-to-tr from-black/60 to-black/40 shadow-lg hover:shadow-2xl hover:shadow-indigo-500/30 hover:scale-110 hover:-rotate-2 active:scale-95 active:rotate-0 transition-all duration-300 ease-out cursor-pointer hover:border-indigo-500/50 hover:bg-gradient-to-tr hover:from-indigo-500/10 hover:to-black/40 group relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-indigo-400/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
+                <div className="relative z-10">
+                  <Facebook className="w-6 h-6 text-indigo-500 group-hover:text-indigo-400 transition-colors duration-300" />
+                </div>
               </a>
-              <a href="#" className="bg-background/10 p-2 rounded-lg hover:bg-primary transition-colors">
-                <Twitter className="h-5 w-5" />
+              {/* Twitter */}
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="p-4 rounded-full backdrop-blur-lg border border-white/10 bg-gradient-to-tr from-black/60 to-black/40 shadow-lg hover:shadow-2xl hover:shadow-white/20 hover:scale-110 hover:rotate-3 active:scale-95 active:rotate-0 transition-all duration-300 ease-out cursor-pointer hover:border-white/30 hover:bg-gradient-to-tr hover:from-white/10 hover:to-black/40 group relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
+                <div className="relative z-10">
+                  <Twitter className="w-6 h-6 text-white group-hover:text-white/90 transition-colors duration-300" />
+                </div>
               </a>
-              <a href="#" className="bg-background/10 p-2 rounded-lg hover:bg-primary transition-colors">
-                <Linkedin className="h-5 w-5" />
+              {/* LinkedIn */}
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-4 rounded-full backdrop-blur-lg border border-indigo-500/20 bg-gradient-to-tr from-black/60 to-black/40 shadow-lg hover:shadow-2xl hover:shadow-indigo-500/30 hover:scale-110 hover:-rotate-2 active:scale-95 active:rotate-0 transition-all duration-300 ease-out cursor-pointer hover:border-indigo-500/50 hover:bg-gradient-to-tr hover:from-indigo-500/10 hover:to-black/40 group relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-indigo-400/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
+                <div className="relative z-10">
+                  <Linkedin className="w-6 h-6 text-indigo-500 group-hover:text-indigo-400 transition-colors duration-300" />
+                </div>
               </a>
-              <a href="#" className="bg-background/10 p-2 rounded-lg hover:bg-primary transition-colors">
-                <Instagram className="h-5 w-5" />
+              {/* Instagram */}
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="p-4 rounded-full backdrop-blur-lg border border-red-500/20 bg-gradient-to-tr from-black/60 to-black/40 shadow-lg hover:shadow-2xl hover:shadow-red-500/30 hover:scale-110 hover:rotate-2 active:scale-95 active:rotate-0 transition-all duration-300 ease-out cursor-pointer hover:border-red-500/50 hover:bg-gradient-to-tr hover:from-red-500/10 hover:to-black/40 group relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-red-400/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
+                <div className="relative z-10">
+                  <Instagram className="w-6 h-6 text-red-500 group-hover:text-red-400 transition-colors duration-300" />
+                </div>
               </a>
             </div>
           </div>
@@ -122,7 +137,7 @@ const Footer = () => {
         <div className="border-t border-background/20 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-background/60 text-center md:text-left">
-              © {currentYear} Fire Training HSE Department. All rights reserved.
+              © {currentYear} Fire Training Ground - Badak LNG. All rights reserved.
             </p>
             <div className="flex gap-6 text-sm">
               <a href="#" className="text-background/60 hover:text-primary transition-colors">
