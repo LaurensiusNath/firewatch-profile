@@ -40,3 +40,51 @@
 .read-the-docs {
   color: #888;
 }
+
+
+@keyframes glow-sweep {
+  0% {
+    transform: translateX(-150%);
+  }
+  100% {
+    transform: translateX(150%);
+  }
+}
+
+.animate-glow-sweep {
+  animation: glow-sweep 2s ease-in-out infinite;
+  animation-delay: 1s; /* Delay before starting */
+}
+
+/* Alternative glow effect with more pronounced shine */
+@keyframes shine {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+  }
+  100% {
+    transform: translateX(200%) skewX(-15deg);
+  }
+}
+
+.animate-shine {
+  animation: shine 2s ease-in-out infinite;
+}
+
+/* Alternative more pronounced glow for badge */
+@keyframes badge-shine {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%) skewX(-15deg);
+    opacity: 0;
+  }
+}
+
+.animate-badge-shine {
+  animation: badge-shine 2.5s ease-in-out infinite;
+}
