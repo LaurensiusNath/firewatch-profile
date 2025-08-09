@@ -96,7 +96,7 @@ const AboutSection = () => {
         {/* Mission Statement */}
         <div className="bg-primary text-primary-foreground rounded-2xl p-12 text-center">
           <h3 className="text-3xl md:text-4xl font-bold mb-6">Our Mission</h3>
-          <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-l md:text-2xl text-primary-foreground/90 max-w-4xl mx-auto leading-relaxed">
             To advance the rights, safety, and future of fire fighters, emergency medical workers, and rescue workers 
             through comprehensive training, advocacy, and professional development programs that serve communities 
             across the United States and Canada.
