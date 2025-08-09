@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Phone, Mail, MapPin, Clock, Flame } from "lucide-react";
+import InteractiveMap from "./InteractiveMap";
 
 const ContactSection = () => {
   const contactInfo = [
@@ -21,8 +22,8 @@ const ContactSection = () => {
     {
       icon: MapPin,
       title: "Location",
-      details: ["123 Safety Drive", "Fire Training Center, ST 12345"],
-      subtitle: "Modern Training Facility"
+      details: ["Jl. Badak LNG, Bontang Utara", "Bontang, Kalimantan Timur, Indonesia"],
+      subtitle: "PT Badak LNG Facility"
     },
     {
       icon: Clock,
@@ -178,18 +179,8 @@ const ContactSection = () => {
               </Card>
             ))}
             
-            {/* Map Placeholder */}
-            <Card className="border-0">
-              <CardContent className="p-0">
-                <div className="h-48 bg-muted rounded-lg flex items-center justify-center">
-                  <div className="text-center">
-                    <MapPin className="h-8 w-8 text-primary mx-auto mb-2" />
-                    <p className="text-muted-foreground">Interactive Map</p>
-                    <p className="text-sm text-muted-foreground">Visit our training facility</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            {/* Interactive Map */}
+            <InteractiveMap />
           </div>
         </div>
       </div>
