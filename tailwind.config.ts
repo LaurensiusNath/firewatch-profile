@@ -1,4 +1,6 @@
 import type { Config } from "tailwindcss";
+import defaultTheme from "tailwindcss/defaultTheme";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
 	darkMode: ["class"],
@@ -18,6 +20,9 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				sans: ["Poppins", ...defaultTheme.fontFamily.sans],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -98,13 +103,18 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'glow-sweep': {
+					'0%': { transform: 'translateX(-100%)' },
+					'100%': { transform: 'translateX(100%)' },
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'glow-sweep': 'glow-sweep 2s ease-in-out infinite'
 			}
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [tailwindcssAnimate]
 } satisfies Config;
