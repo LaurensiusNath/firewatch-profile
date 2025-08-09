@@ -1,9 +1,19 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Shield, Heart, Users, Scale, DollarSign, Building, ShieldCheck, Bandage, HeartPulse } from "lucide-react";
+import PriorityModal from "./PriorityModal";
+import { useState } from "react";
 import safetyEquipment from "@/assets/safety-equipment.jpg";
 
 const AboutSection = () => {
+  const [selectedPriority, setSelectedPriority] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleLearnMore = (priority: any) => {
+    setSelectedPriority(priority);
+    setIsModalOpen(true);
+  };
+
   const priorities = [
     {
       icon: ShieldCheck,
@@ -74,6 +84,7 @@ const AboutSection = () => {
                 <Button 
                   variant="outline" 
                   className="text-accent border-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300"
+                  onClick={() => handleLearnMore(priority)}
                 >
                   Learn More
                 </Button>
@@ -91,6 +102,12 @@ const AboutSection = () => {
             across the United States and Canada.
           </p>
         </div>
+
+        <PriorityModal 
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          priority={selectedPriority}
+        />
       </div>
     </section>
   );
