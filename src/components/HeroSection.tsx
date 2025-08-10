@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Shield, Users, Award, ArrowRight } from "lucide-react";
-import heroImage from "@/assets/hero-firefighter.jpg";
+import { ArrowRight } from "lucide-react";
 
 const HeroSection = () => {
   const scrollToSection = (id: string) => {
@@ -12,10 +11,16 @@ const HeroSection = () => {
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Clean Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary-dark to-primary" />
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10"
-        style={{ backgroundImage: `url(${heroImage})` }}
-      />
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover opacity-10"
+      >
+        {/* Pastikan nama file ini sesuai dengan video Anda di folder /public */}
+        <source src="/hero-video.mp4" type="video/mp4" />
+      </video>
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 text-primary-foreground pt-20">

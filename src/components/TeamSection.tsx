@@ -68,7 +68,7 @@ const TeamSection = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
             Meet Our Expert <span className="text-primary">Team</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-5xl mx-auto">
             Our team of certified professionals brings decades of experience in fire safety, 
             emergency response, and HSE consulting to provide world-class training programs.
           </p>

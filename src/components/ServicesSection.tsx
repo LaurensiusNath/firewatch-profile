@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useNavigate } from "react-router-dom";
 import {
   Flame,
   Shield,
@@ -14,6 +15,8 @@ import {
 } from "lucide-react";
 
 const ServicesSection = () => {
+  const navigate = useNavigate();
+
   const trainings = [
     {
       icon: Flame,
@@ -24,6 +27,7 @@ const ServicesSection = () => {
       certification: "NFPA Certified",
       level: "Entry Level",
       featured: true,
+      slug: "fire-fighter-training-academy",
     },
     {
       icon: Shield,
@@ -34,6 +38,7 @@ const ServicesSection = () => {
       certification: "NREMT Certified",
       level: "Professional",
       featured: false,
+      slug: "emergency-medical-services",
     },
     {
       icon: HardHat,
@@ -44,6 +49,7 @@ const ServicesSection = () => {
       certification: "OSHA Certified",
       level: "Advanced",
       featured: false,
+      slug: "hazmat-operations",
     },
     {
       icon: Users,
@@ -54,6 +60,7 @@ const ServicesSection = () => {
       certification: "FESHE Certified",
       level: "Leadership",
       featured: true,
+      slug: "leadership-development",
     },
     {
       icon: Building,
@@ -64,6 +71,7 @@ const ServicesSection = () => {
       certification: "ICC Certified",
       level: "Specialist",
       featured: false,
+      slug: "fire-prevention-inspection",
     },
     {
       icon: Wrench,
@@ -74,6 +82,7 @@ const ServicesSection = () => {
       certification: "NFPA Certified",
       level: "Technical",
       featured: false,
+      slug: "technical-rescue-operations",
     },
   ];
 
@@ -87,7 +96,7 @@ const ServicesSection = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
             Training <span className="text-accent">Programs</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
             Comprehensive training and certification programs designed to
             advance fire fighter skills, safety knowledge, and professional
             development at every career level.
@@ -169,10 +178,7 @@ const ServicesSection = () => {
                       ? "bg-accent hover:bg-accent/90 text-accent-foreground"
                       : "bg-accent hover:bg-accent/90 text-accent-foreground hover:shadow-accent"
                   }`}
-                  onClick={() => {
-                    const element = document.getElementById("contact");
-                    element?.scrollIntoView({ behavior: "smooth" });
-                  }}
+                  onClick={() => navigate(`/training/${training.slug}`)}
                 >
                   {training.featured ? "Enroll Now" : "Learn More"}
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -187,7 +193,7 @@ const ServicesSection = () => {
           <h3 className="text-3xl md:text-4xl font-bold mb-6">
             Ready to Advance Your Career?
           </h3>
-          <p className="text-xl mb-8 text-primary-foreground/90 max-w-3xl mx-auto">
+          <p className="text-xl mb-8 text-primary-foreground/90 max-w-7xl mx-auto">
             Join thousands of fire fighters who have advanced their careers
             through our professional training programs. Contact us today to
             discuss enrollment and certification pathways.
