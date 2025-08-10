@@ -33,7 +33,12 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center space-x-3">
-              <img src={logoBadak} alt="Fire Training HSE Logo" className="h-10 w-auto" />
+              <div className="p-2 rounded-xl backdrop-blur-lg border border-white/60 bg-gradient-to-tr from-white/70 to-white/60 shadow-lg hover:shadow-2xl hover:shadow-white/30 hover:scale-110 hover:rotate-3 active:scale-95 active:rotate-0 transition-all duration-300 ease-out group relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
+                <div className="relative z-10">
+                  <img src={logoBadak} alt="Fire Training HSE Logo" className="h-10 w-auto" />
+                </div>
+              </div>
               <div>
                 <h3 className="text-xl font-bold"> Badak Lng</h3>
                 <p className="text-background/70 text-sm">Fire Training Ground</p>

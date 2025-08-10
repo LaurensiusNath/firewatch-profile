@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, Calendar, ArrowRight } from "lucide-react";
+import { Calendar, ArrowRight } from "lucide-react";
+import { useSwipeable } from "react-swipeable";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -18,7 +19,7 @@ const newsData: NewsItem[] = [
     id: 1,
     title: "PT Badak LNG Achieves New Safety Milestone",
     description: "Our commitment to safety excellence continues with zero incidents recorded for 365 consecutive days.",
-    image: "/placeholder.svg",
+    image: "/news1.jpeg",
     date: "2024-08-05",
     category: "Safety"
   },
@@ -26,7 +27,7 @@ const newsData: NewsItem[] = [
     id: 2,
     title: "Sustainable Energy Initiative Launch",
     description: "Introducing our new renewable energy program to reduce carbon footprint by 30%.",
-    image: "/placeholder.svg", 
+    image: "/news2.jpg",
     date: "2024-08-03",
     category: "Environment"
   },
@@ -34,7 +35,7 @@ const newsData: NewsItem[] = [
     id: 3,
     title: "Community Development Program Expansion",
     description: "Expanding educational support programs for local communities in East Kalimantan.",
-    image: "/placeholder.svg",
+    image: "/news3.jpg",
     date: "2024-07-28",
     category: "Community"
   },
@@ -42,7 +43,7 @@ const newsData: NewsItem[] = [
     id: 4,
     title: "Technology Innovation in LNG Production",
     description: "Implementation of AI-driven monitoring systems to optimize production efficiency.",
-    image: "/placeholder.svg",
+    image: "/news4.jpg",
     date: "2024-07-25",
     category: "Technology"
   },
@@ -103,6 +104,13 @@ const NewsSection = () => {
     return newsData.slice(startIndex, startIndex + itemsPerSlide);
   };
 
+  const handlers = useSwipeable({
+    onSwipedLeft: () => handleNextSlide(),
+    onSwipedRight: () => handlePrevSlide(),
+    preventScrollOnSwipe: true,
+    trackMouse: true,
+  });
+
   return (
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
@@ -115,7 +123,7 @@ const NewsSection = () => {
 
         <div className="relative">
           {/* News Grid */}
-          <div className="overflow-hidden">
+          <div {...handlers} className="overflow-hidden cursor-grab active:cursor-grabbing">
             <div 
               className="flex transition-transform duration-500 ease-in-out"
               style={{ transform: `translateX(-${currentSlide * 100}%)` }}
@@ -174,25 +182,6 @@ const NewsSection = () => {
               ))}
             </div>
           </div>
-
-          {/* Navigation Buttons */}
-          <Button
-            variant="outline"
-            size="icon"
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-background/80 backdrop-blur-sm hover:bg-background"
-            onClick={handlePrevSlide}
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </Button>
-          
-          <Button
-            variant="outline"
-            size="icon"
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-background/80 backdrop-blur-sm hover:bg-background"
-            onClick={handleNextSlide}
-          >
-            <ChevronRight className="w-4 h-4" />
-          </Button>
 
           {/* Pagination Bullets */}
           <div className="flex justify-center gap-2 mt-8">
