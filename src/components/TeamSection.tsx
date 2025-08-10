@@ -131,7 +131,7 @@ const TeamSection = () => {
         </div>
 
         {/* Team Members Carousel */}
-        <div className="relative">
+        <div className="relative mb-16">
           <Carousel className="w-full">
             <CarouselContent className="-ml-2 md:-ml-4">
               {/* Slide 1 - First 2 members */}
