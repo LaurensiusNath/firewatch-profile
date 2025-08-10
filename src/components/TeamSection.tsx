@@ -1,38 +1,64 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Award, Users, BookOpen, Shield } from "lucide-react";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Award, Users, BookOpen, Shield, Quote } from "lucide-react";
+import { useState } from "react";
 
 const TeamSection = () => {
+  const [flippedCards, setFlippedCards] = useState<number[]>([]);
+
   const teamMembers = [
     {
       name: "Michael Rodriguez",
       position: "Chief Fire Safety Instructor",
       certifications: ["NFPA Certified", "Fire Inspector", "Emergency Response"],
       experience: "20+ years",
-      specialties: ["Industrial Fire Safety", "Emergency Response Training"]
+      specialties: ["Industrial Fire Safety", "Emergency Response Training"],
+      photo: "/src/assets/team-photo.jpg",
+      quote: "Safety is not just a priority, it's a way of life. Every day we save lives through proper training and preparation."
     },
     {
       name: "Sarah Chen",
       position: "HSE Consultant Director",
       certifications: ["OSHA Certified", "Environmental Safety", "Risk Assessment"],
       experience: "15+ years",
-      specialties: ["Workplace Safety", "Environmental Compliance"]
+      specialties: ["Workplace Safety", "Environmental Compliance"],
+      photo: "/src/assets/safety-equipment.jpg",
+      quote: "Excellence in safety comes from understanding that prevention is always better than reaction."
     },
     {
       name: "David Thompson",
       position: "Training Coordinator",
       certifications: ["CPR/AED Instructor", "Safety Management", "Training Development"],
       experience: "12+ years",
-      specialties: ["Training Program Development", "Safety Leadership"]
+      specialties: ["Training Program Development", "Safety Leadership"],
+      photo: "/src/assets/hero-firefighter.jpg",
+      quote: "Great leaders inspire others to achieve safety excellence through education and example."
     },
     {
       name: "Jennifer Martinez",
       position: "Fire Prevention Specialist",
       certifications: ["Fire Prevention", "Building Codes", "Safety Inspection"],
       experience: "18+ years",
-      specialties: ["Building Safety", "Fire Prevention Systems"]
+      specialties: ["Building Safety", "Fire Prevention Systems"],
+      photo: "/teamFireTrainingGround.webp",
+      quote: "Prevention is the cornerstone of fire safety. Every inspection could save countless lives."
     }
   ];
+
+  const handleCardFlip = (index: number) => {
+    setFlippedCards(prev => 
+      prev.includes(index) 
+        ? prev.filter(i => i !== index)
+        : [...prev, index]
+    );
+  };
+
+  // Group team members into pairs for carousel slides
+  const teamSlides = [];
+  for (let i = 0; i < teamMembers.length; i += 2) {
+    teamSlides.push(teamMembers.slice(i, i + 2));
+  }
 
   const stats = [
     {
@@ -106,55 +132,104 @@ const TeamSection = () => {
           ))}
         </div>
 
-        {/* Team Members */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {teamMembers.map((member, index) => (
-            <Card key={index} className="hover:shadow-card transition-all duration-300 group border-0">
-              <CardContent className="p-6">
-                <div className="text-center mb-4">
-                  <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-3 group-hover:shadow-accent transition-all duration-300">
-                    <Users className="h-8 w-8 text-primary-foreground" />
-                  </div>
-                  <h4 className="text-lg font-bold text-foreground group-hover:text-accent transition-colors">
-                    {member.name}
-                  </h4>
-                  <p className="text-accent font-medium">{member.position}</p>
-                </div>
+        {/* Team Members Carousel */}
+        <div className="mb-16">
+          <Carousel className="w-full">
+            <CarouselContent>
+              {teamSlides.map((slide, slideIndex) => (
+                <CarouselItem key={slideIndex}>
+                  <div className="grid md:grid-cols-2 gap-6 px-4">
+                    {slide.map((member, memberIndex) => {
+                      const globalIndex = slideIndex * 2 + memberIndex;
+                      const isFlipped = flippedCards.includes(globalIndex);
+                      
+                      return (
+                        <div key={globalIndex} className="perspective-1000">
+                          <Card 
+                            className="flip-card cursor-pointer h-[400px] relative"
+                            onClick={() => handleCardFlip(globalIndex)}
+                          >
+                            <div className={`flip-card-inner ${isFlipped ? 'flipped' : ''}`}>
+                              {/* Front of Card */}
+                              <div className="flip-card-front">
+                                <CardContent className="p-6 h-full">
+                                  <div className="text-center mb-4">
+                                    <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-3 group-hover:shadow-accent transition-all duration-300">
+                                      <Users className="h-8 w-8 text-primary-foreground" />
+                                    </div>
+                                    <h4 className="text-lg font-bold text-foreground group-hover:text-accent transition-colors">
+                                      {member.name}
+                                    </h4>
+                                    <p className="text-accent font-medium">{member.position}</p>
+                                  </div>
 
-                <div className="space-y-4">
-                  <div>
-                    <p className="text-sm font-semibold text-foreground mb-2">Experience:</p>
-                    <Badge variant="outline" className="text-accent border-accent">
-                      {member.experience}
-                    </Badge>
-                  </div>
+                                  <div className="space-y-4">
+                                    <div>
+                                      <p className="text-sm font-semibold text-foreground mb-2">Experience:</p>
+                                      <Badge variant="outline" className="text-accent border-accent">
+                                        {member.experience}
+                                      </Badge>
+                                    </div>
 
-                  <div>
-                    <p className="text-sm font-semibold text-foreground mb-2">Certifications:</p>
-                    <div className="flex flex-wrap gap-1">
-                      {member.certifications.map((cert, i) => (
-                        <Badge key={i} variant="secondary" className="text-xs">
-                          {cert}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
+                                    <div>
+                                      <p className="text-sm font-semibold text-foreground mb-2">Certifications:</p>
+                                      <div className="flex flex-wrap gap-1">
+                                        {member.certifications.map((cert, i) => (
+                                          <Badge key={i} variant="secondary" className="text-xs">
+                                            {cert}
+                                          </Badge>
+                                        ))}
+                                      </div>
+                                    </div>
 
-                  <div>
-                    <p className="text-sm font-semibold text-foreground mb-2">Specialties:</p>
-                    <ul className="space-y-1">
-                      {member.specialties.map((specialty, i) => (
-                        <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <div className="w-1.5 h-1.5 bg-accent rounded-full"></div>
-                          {specialty}
-                        </li>
-                      ))}
-                    </ul>
+                                    <div>
+                                      <p className="text-sm font-semibold text-foreground mb-2">Specialties:</p>
+                                      <ul className="space-y-1">
+                                        {member.specialties.map((specialty, i) => (
+                                          <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
+                                            <div className="w-1.5 h-1.5 bg-accent rounded-full"></div>
+                                            {specialty}
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </CardContent>
+                              </div>
+
+                              {/* Back of Card */}
+                              <div className="flip-card-back">
+                                <CardContent className="p-6 h-full flex flex-col justify-center items-center text-center">
+                                  <div className="mb-6">
+                                    <img 
+                                      src={member.photo} 
+                                      alt={member.name}
+                                      className="w-24 h-24 rounded-full object-cover mx-auto mb-4 border-4 border-accent"
+                                    />
+                                    <h4 className="text-xl font-bold text-foreground mb-2">{member.name}</h4>
+                                    <p className="text-accent font-medium">{member.position}</p>
+                                  </div>
+                                  
+                                  <div className="bg-accent/10 p-4 rounded-xl">
+                                    <Quote className="h-6 w-6 text-accent mx-auto mb-3" />
+                                    <p className="text-muted-foreground italic text-sm leading-relaxed">
+                                      "{member.quote}"
+                                    </p>
+                                  </div>
+                                </CardContent>
+                              </div>
+                            </div>
+                          </Card>
+                        </div>
+                      );
+                    })}
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-4" />
+            <CarouselNext className="right-4" />
+          </Carousel>
         </div>
 
         {/* Team CTA */}
