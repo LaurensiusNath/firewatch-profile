@@ -1,20 +1,26 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Shield, Heart, Users, Scale, DollarSign, Building, ShieldCheck, Bandage, HeartPulse } from "lucide-react";
+import { LucideIcon, Users, Scale, DollarSign, Building, ShieldCheck, HeartPulse } from "lucide-react";
 import PriorityModal from "./PriorityModal";
 import { useState } from "react";
-import safetyEquipment from "@/assets/safety-equipment.jpg";
+
+interface Priority {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  link: string;
+}
 
 const AboutSection = () => {
-  const [selectedPriority, setSelectedPriority] = useState<any>(null);
+  const [selectedPriority, setSelectedPriority] = useState<Priority | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleLearnMore = (priority: any) => {
+  const handleLearnMore = (priority: Priority) => {
     setSelectedPriority(priority);
     setIsModalOpen(true);
   };
 
-  const priorities = [
+  const priorities: Priority[] = [
     {
       icon: ShieldCheck,
       title: "Safety & Protection",
@@ -63,7 +69,7 @@ const AboutSection = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
             What Matters Most to <span className="text-accent">Fire Fighters</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-6xl mx-auto">
             Our commitment to fire fighter safety, health, and professional advancement drives everything we do. 
             These are the core areas where we focus our advocacy, training, and support efforts.
           </p>
@@ -96,7 +102,7 @@ const AboutSection = () => {
         {/* Mission Statement */}
         <div className="bg-primary text-primary-foreground rounded-2xl p-12 text-center">
           <h3 className="text-3xl md:text-4xl font-bold mb-6">Our Mission</h3>
-          <p className="text-l md:text-2xl text-primary-foreground/90 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-l md:text-xl text-primary-foreground/90 max-w-7xl mx-auto leading-relaxed">
             To advance the rights, safety, and future of fire fighters, emergency medical workers, and rescue workers 
             through comprehensive training, advocacy, and professional development programs that serve communities 
             across the United States and Canada.

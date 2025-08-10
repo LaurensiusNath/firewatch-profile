@@ -160,10 +160,10 @@ const FloatingHeader = () => {
                           </div>
                           <NavigationMenuLink asChild>
                             <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                              <div className="text-sm font-medium leading-none">
+                              <div className="text-sm leading-none font-semibold">
                                 HSE Certification
                               </div>
-                              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              <p className="line-clamp-2 text-sm leading-snug opacity-80">
                                 Health, safety, and environmental certification
                                 programs.
                               </p>
@@ -171,10 +171,10 @@ const FloatingHeader = () => {
                           </NavigationMenuLink>
                           <NavigationMenuLink asChild>
                             <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                              <div className="text-sm font-medium leading-none">
+                              <div className="text-sm leading-none font-semibold">
                                 Emergency Response
                               </div>
-                              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              <p className="line-clamp-2 text-sm leading-snug opacity-80">
                                 Advanced emergency response and crisis
                                 management.
                               </p>
