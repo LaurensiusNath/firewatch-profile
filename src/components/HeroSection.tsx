@@ -10,7 +10,7 @@ const HeroSection = () => {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Clean Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-dark to-primary" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary-dark to-primary-dark" />
       <video
         autoPlay
         loop
