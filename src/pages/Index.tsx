@@ -6,7 +6,7 @@ import TeamSection from "@/components/TeamSection";
 import NewsSection from "@/components/NewsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
-
+  
 const Index = () => {
   return (
     <div className="min-h-screen">

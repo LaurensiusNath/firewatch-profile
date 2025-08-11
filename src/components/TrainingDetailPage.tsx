@@ -9,14 +9,19 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import NotFound from "@/pages/NotFound";
 import { trainings, ModuleTopic, CertificateDetail } from "@/data/trainings";
 
 export default function TrainingDetailPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [selectedModule, setSelectedModule] = useState<{ title: string; duration: string; description: string; topics: ModuleTopic[] } | null>(null)
   const [selectedCertificate, setSelectedCertificate] = useState<CertificateDetail | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const moduleDetails = {
     1: {
@@ -172,7 +177,7 @@ export default function TrainingDetailPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm" onClick={() => navigate("/#services")}>
+              <Button variant="ghost" size="sm" onClick={() => navigate(-1)}>
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Programs
               </Button>
@@ -199,16 +204,27 @@ export default function TrainingDetailPage() {
             <Card>
               <CardContent className="p-0">
                 <div className="relative aspect-video bg-gray-900 rounded-t-lg overflow-hidden">
-                  <img
-                    src={`/news${(trainings.findIndex(t => t.slug === slug) % 4) + 1}.jpg`}
-                    className="w-full h-full"
-                    alt={training.title}
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <Button size="lg" className="rounded-full w-16 h-16">
-                      <Play className="w-6 h-6 ml-1" />
-                    </Button>
-                  </div>
+                  {isPlaying ? (
+                    <video
+                      src="/hero-video.mp4" // Pastikan video ini ada di folder public Anda
+                      className="w-full h-full object-cover"
+                      autoPlay
+                      controls
+                    />
+                  ) : (
+                    <>
+                      <img
+                        src={`/news${(trainings.findIndex(t => t.slug === slug) % 4) + 1}.jpg`}
+                        className="w-full h-full object-cover"
+                        alt={training.title}
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                        <Button size="lg" className="rounded-full w-20 h-20 bg-white/20 backdrop-blur-sm hover:bg-white/30" onClick={() => setIsPlaying(true)}>
+                          <Play className="w-8 h-8 ml-1 text-white" />
+                        </Button>
+                      </div>
+                    </>
+                  )}
                 </div>
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-4">
