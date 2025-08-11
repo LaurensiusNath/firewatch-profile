@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fire Training HSE Department Design System */
+
+@layer base {
+  :root {
+    /* Clean modern fire safety theme */
+    --background: 0 0% 100%;
+    --foreground: 210 40% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 210 40% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 40% 10%;
+
+    /* Professional navy primary with fire red accents */
+    --primary: 220 30% 25%;
+    --primary-foreground: 0 0% 100%;
+    --primary-dark: 220 40% 15%;
+
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 210 40% 15%;
+
+    --muted: 210 20% 96%;
+    --muted-foreground: 210 10% 45%;
+
+    --accent: 4 89% 58%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 20% 92%;
+    --input: 210 20% 92%;
+    --ring: 220 30% 25%;
+
+    /* Professional gradients */
+    --gradient-navy: linear-gradient(135deg, hsl(220 40% 15%), hsl(220 30% 25%));
+    --gradient-accent: linear-gradient(135deg, hsl(4 89% 58%), hsl(24 100% 65%));
+    --gradient-hero: linear-gradient(135deg, hsl(220 40% 15% / 0.95), hsl(220 30% 25% / 0.9));
+    
+    /* Professional shadows */
+    --shadow-professional: 0 10px 30px -5px hsl(220 40% 15% / 0.3);
+    --shadow-accent: 0 0 40px hsl(4 89% 58% / 0.4);
+    --shadow-card: 0 4px 20px -2px hsl(220 13% 0% / 0.1);
+
+    /* Smooth transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Clean dark mode */
+    --background: 210 40% 4%;
+    --foreground: 210 40% 98%;
+
+    --card: 210 40% 6%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 210 40% 6%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 220 30% 45%;
+    --primary-foreground: 210 40% 4%;
+
+    --secondary: 210 40% 10%;
+    --secondary-foreground: 210 40% 90%;
+
+    --muted: 210 40% 10%;
+    --muted-foreground: 210 10% 60%;
+
+    --accent: 4 89% 58%;
+    --accent-foreground: 210 40% 4%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 210 20% 18%;
+    --input: 210 20% 18%;
+    --ring: 220 30% 45%;
+    
+    --sidebar-background: 220 40% 15%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 4 89% 58%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 25% 20%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 220 25% 20%;
+    --sidebar-ring: 4 89% 58%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
