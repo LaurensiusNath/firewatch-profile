@@ -1,11 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Calendar, Tag, ArrowLeft, Search } from "lucide-react";
+import {
+  Calendar as CalendarIcon,
+  Tag,
+  ArrowLeft,
+  Search,
+  Filter,
+} from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import FloatingHeader from "@/components/FloatingHeader";
 import Footer from "@/components/Footer";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { DateRange } from "react-day-picker";
+import { format } from "date-fns";
 
 const newsData = [
   {
@@ -40,7 +54,7 @@ const newsData = [
     title: "Technology Innovation in LNG Production",
     description:
       "Implementation of AI-driven monitoring systems to optimize production efficiency.",
-    image:  "/placeholder.svg",
+    image: "/placeholder.svg",
     date: "2024-07-25",
     category: "Technology",
   },
@@ -82,19 +96,63 @@ const newsData = [
   },
 ];
 
-const categories = ["All", "Safety", "Environment", "Community", "Technology", "Business", "People"];
+const categories = [
+  "All",
+  "Safety",
+  "Environment",
+  "Community",
+  "Technology",
+  "Business",
+  "People",
+];
 
 const NewsPage = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [date, setDate] = useState<DateRange | undefined>(undefined);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const filteredNews = newsData.filter(news => {
-    const matchesSearch = news.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         news.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === "All" || news.category === selectedCategory;
-    return matchesSearch && matchesCategory;
+  const ITEMS_PER_PAGE = 6; // 3x2 grid
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // Reset to first page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, selectedCategory, date]);
+
+  const filteredNews = newsData.filter((news) => {
+    const newsDate = new Date(news.date);
+
+    const matchesSearch =
+      news.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      news.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory =
+      selectedCategory === "All" || news.category === selectedCategory;
+
+    const matchesDate = (() => {
+      if (!date || (!date.from && !date.to)) return true;
+      const from = date.from;
+      const to = date.to ? new Date(date.to.getTime()) : undefined;
+      if (to) {
+        to.setHours(23, 59, 59, 999);
+      }
+      if (from && to) return newsDate >= from && newsDate <= to;
+      if (from) return newsDate >= from;
+      if (to) return newsDate <= to;
+      return true;
+    })();
+    return matchesSearch && matchesCategory && matchesDate;
   });
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredNews.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const paginatedNews = filteredNews.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
 
   const handleNewsClick = (newsId: number) => {
     navigate(`/news/${newsId}`);
@@ -103,25 +161,26 @@ const NewsPage = () => {
   return (
     <div className="min-h-screen">
       <FloatingHeader />
-      
+
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-to-b from-primary/5 to-background">
+      <section className="pt-32 pb-4 bg-gradient-to-b from-primary/5 to-background">
         <div className="container mx-auto px-4">
-          <Button 
-            variant="ghost" 
-            onClick={() => navigate('/')}
+          <Button
+            variant="ghost"
+            onClick={() => navigate(-1)}
             className="mb-6 hover:bg-primary/10"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Home
+            Back
           </Button>
-          
+
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
               News & Updates
             </h1>
             <p className="text-xl text-muted-foreground mb-8">
-              Stay informed about our latest developments, achievements, and initiatives
+              Stay informed about our latest developments, achievements, and
+              initiatives
             </p>
           </div>
         </div>
@@ -141,13 +200,56 @@ const NewsPage = () => {
                   className="pl-10"
                 />
               </div>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="w-full md:w-auto justify-start text-left font-normal"
+                  >
+                    <Filter className="mr-2 h-4 w-4" />
+                    {date?.from ? (
+                      date.to ? (
+                        <>
+                          {format(date.from, "LLL dd, y")} -{" "}
+                          {format(date.to, "LLL dd, y")}
+                        </>
+                      ) : (
+                        format(date.from, "LLL dd, y")
+                      )
+                    ) : (
+                      <span>Filter by date</span>
+                    )}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="end">
+                  <Calendar
+                    initialFocus
+                    mode="range"
+                    defaultMonth={date?.from}
+                    selected={date}
+                    onSelect={setDate}
+                    numberOfMonths={2}
+                  />
+                  <div className="p-2 border-t border-border flex justify-end">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setDate(undefined)}
+                    >
+                      Reset
+                    </Button>
+                  </div>
+                </PopoverContent>
+              </Popover>
             </div>
-            
+
             <div className="flex flex-wrap gap-2">
               {categories.map((category) => (
                 <Button
                   key={category}
-                  variant={selectedCategory === category ? "default" : "outline"}
+                  variant={
+                    selectedCategory === category ? "default" : "outline"
+                  }
                   size="sm"
                   onClick={() => setSelectedCategory(category)}
                 >
@@ -163,53 +265,79 @@ const NewsPage = () => {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            {filteredNews.length > 0 ? (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredNews.map((news) => (
-                  <Card 
-                    key={news.id}
-                    className="group cursor-pointer hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-                    onClick={() => handleNewsClick(news.id)}
-                  >
-                    <CardContent className="p-0">
-                      <div className="relative overflow-hidden rounded-t-lg">
-                        <img 
-                          src={news.image} 
-                          alt={news.title}
-                          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                        <div className="absolute top-4 left-4">
-                          <span className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
-                            <Tag className="w-3 h-3" />
-                            {news.category}
-                          </span>
+            {paginatedNews.length > 0 ? (
+              <>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {paginatedNews.map((news) => (
+                    <Card
+                      key={news.id}
+                      className="group cursor-pointer hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                      onClick={() => handleNewsClick(news.id)}
+                    >
+                      <CardContent className="p-0">
+                        <div className="relative overflow-hidden rounded-t-lg">
+                          <img
+                            src={news.image}
+                            alt={news.title}
+                            className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                          <div className="absolute top-4 left-4">
+                            <span className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+                              <Tag className="w-3 h-3" />
+                              {news.category}
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                      <div className="p-6">
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
-                          <Calendar className="w-4 h-4" />
-                          <time dateTime={news.date}>
-                            {new Date(news.date).toLocaleDateString('en-US', {
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric'
-                            })}
-                          </time>
+                        <div className="p-6">
+                          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
+                            <CalendarIcon className="w-4 h-4" />
+                            <time dateTime={news.date}>
+                              {new Date(news.date).toLocaleDateString("en-US", {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                              })}
+                            </time>
+                          </div>
+                          <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
+                            {news.title}
+                          </h3>
+                          <p className="text-muted-foreground line-clamp-3">
+                            {news.description}
+                          </p>
                         </div>
-                        <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
-                          {news.title}
-                        </h3>
-                        <p className="text-muted-foreground line-clamp-3">
-                          {news.description}
-                        </p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+
+                {totalPages > 1 && (
+                  <div className="flex items-center justify-center gap-4 mt-12">
+                    <Button
+                      variant="outline"
+                      onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                      disabled={currentPage === 1}
+                    >
+                      Previous
+                    </Button>
+                    <span className="text-muted-foreground text-sm">
+                      Page {currentPage} of {totalPages}
+                    </span>
+                    <Button
+                      variant="outline"
+                      onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                      disabled={currentPage === totalPages}
+                    >
+                      Next
+                    </Button>
+                  </div>
+                )}
+              </>
             ) : (
               <div className="text-center py-12">
-                <p className="text-muted-foreground text-lg">No news articles found matching your criteria.</p>
+                <p className="text-muted-foreground text-lg">
+                  No news articles found matching your criteria.
+                </p>
               </div>
             )}
           </div>
