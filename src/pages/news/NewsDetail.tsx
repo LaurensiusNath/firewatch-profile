@@ -1,4 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { ArrowLeft, Calendar, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import FloatingHeader from "@/components/FloatingHeader";
@@ -62,6 +63,10 @@ const newsData = [
 const NewsDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
   
   const newsItem = newsData.find(item => item.id === parseInt(id || ''));
 
@@ -85,11 +90,11 @@ const NewsDetail = () => {
         <div className="container mx-auto px-4">
           <Button 
             variant="ghost" 
-            onClick={() => navigate('/')}
+            onClick={() => navigate(-1)}
             className="mb-6 hover:bg-primary/10 ml-10"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Home
+            Back to News
           </Button>
           
           <div className="max-w-4xl mx-auto">
@@ -142,11 +147,11 @@ const NewsDetail = () => {
             <div className="mt-12 mb-12 pt-8 border-t border-border">
               <Button 
                 variant="outline" 
-                onClick={() => navigate('/')}
+                onClick={() => navigate(-1)}
                 className="hover:bg-primary hover:text-primary-foreground"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Home
+                Back to News
               </Button>
             </div>
           </div>
