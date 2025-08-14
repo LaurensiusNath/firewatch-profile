@@ -9,26 +9,30 @@ import NewsDetail from "./pages/news/NewsDetail";
 import TrainingProgramsList from "./pages/training/TrainingPage";
 import TrainingDetailPage from "./pages/training/TrainingDetailPage";
 import NotFound from "./pages/NotFound";
+import { AuthProvider } from "./hooks/authContext";
+import SignInPage from "./pages/auth/SignInPage";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/news" element={<NewsPage />} />
-          <Route path="/news/:id" element={<NewsDetail />} />
-          <Route path="/training" element={<TrainingProgramsList />} />
-          <Route path="/training/:slug" element={<TrainingDetailPage />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+    <AuthProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/news" element={<NewsPage />} />
+            <Route path="/news/:id" element={<NewsDetail />} />
+            <Route path="/training" element={<TrainingProgramsList />} />
+            <Route path="/training/:slug" element={<TrainingDetailPage />} />
+            <Route path="/sign-in" element={<SignInPage />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </AuthProvider>
   </QueryClientProvider>
 );
 
