@@ -35,7 +35,7 @@ const UserDropdown = () => {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="flex items-center gap-2 h-auto p-2 hover:bg-white/10 transition-colors"
+          className="flex items-center gap-2 h-auto p-2 hover:bg-gray-100 transition-colors rounded-lg"
         >
           <Avatar className="h-8 w-8">
             <AvatarFallback className="bg-blue-600 text-white text-sm">
@@ -43,10 +43,10 @@ const UserDropdown = () => {
             </AvatarFallback>
           </Avatar>
           <div className="hidden md:block text-left">
-            <p className="text-sm font-medium text-white">{user.fullName}</p>
-            <p className="text-xs text-blue-100">{user.role}</p>
+            <p className="text-sm font-medium text-gray-900">{user.fullName}</p>
+            <p className="text-xs text-gray-600">{user.role}</p>
           </div>
-          <ChevronDown className="h-4 w-4 text-white/70" />
+          <ChevronDown className="h-4 w-4 text-gray-600" />
         </Button>
       </DropdownMenuTrigger>
 

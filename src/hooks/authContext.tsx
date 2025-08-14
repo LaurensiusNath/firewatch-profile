@@ -7,7 +7,6 @@ import React, {
 } from "react";
 import secureLocalStorage from "react-secure-storage";
 
-// Mock user data - replace with your actual user interface
 interface User {
   id: string;
   username: string;
@@ -30,7 +29,6 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Mock user database - in real app, this would be from your backend
 const MOCK_USERS = [
   {
     id: "1",
@@ -61,7 +59,9 @@ const MOCK_USERS = [
   },
 ];
 
-const AUTH_STORAGE_KEY = import.meta.env.AUTH_STORAGE_KEY || "authSession";
+// Fix: Use correct environment variable name
+const AUTH_STORAGE_KEY =
+  import.meta.env.VITE_AUTH_STORAGE_KEY || "badak_lng_auth_session";
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
@@ -69,7 +69,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Check for existing session on mount
   useEffect(() => {
     checkExistingSession();
   }, []);
@@ -79,14 +78,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       const storedSession = secureLocalStorage.getItem(AUTH_STORAGE_KEY);
       if (storedSession) {
         const sessionData = JSON.parse(`${storedSession}`);
-        // Verify session is still valid (you might want to check expiry, etc.)
         if (sessionData.user && sessionData.timestamp) {
           const sessionAge = Date.now() - sessionData.timestamp;
-          // Session valid for 24 hours (86400000 ms)
+          // Session valid for 24 hours
           if (sessionAge < 86400000) {
             setUser(sessionData.user);
           } else {
-            // Session expired, remove it
             secureLocalStorage.removeItem(AUTH_STORAGE_KEY);
           }
         }
@@ -105,11 +102,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   ): Promise<{ success: boolean; error?: string }> => {
     setIsLoading(true);
 
-    // Simulate API call delay
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     try {
-      // Find matching user
       const matchedUser = MOCK_USERS.find(
         (u) =>
           u.username.toLowerCase() === username.toLowerCase() &&
@@ -126,7 +121,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
           fullName: matchedUser.fullName,
         };
 
-        // Store session data
         const sessionData = {
           user: userData,
           timestamp: Date.now(),
